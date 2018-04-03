@@ -1,4 +1,15 @@
 # IS4302
+## Architecture
+This follows *MVC* model
+
+`app.models` is where we define the models for our database
+
+`app.views` is where we serve html pages for the front end
+
+`app.controller` is where we control the data flow i.e. what to show, what to store in the database
+
+`app.blockchain` is where we call the blockchain rest server
+
 ## How to setup
 - Clone this
 - Using python 3, install all the dependencies. `pip install -r requirements.txt`
