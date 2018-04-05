@@ -16,7 +16,7 @@ class User(UserMixin, db.Model):
     def __init__(self, username, password, role):
         self.role = role
         self.username = username
-        self._password = bcrypt.generate_password_hash(password)
+        self._password = bcrypt.generate_password_hash(password).decode('utf-8')
         self.is_verified = False
 
     def is_active(self):

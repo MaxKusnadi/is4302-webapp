@@ -30,6 +30,7 @@ class LoginController:
         logging.info("Login by {}".format(username))
         user = User.query.filter(User.username == username).first()
         if not user:
+            logging.info(user)
             logging.error("User {} not found".format(username))
             raise ValueError("Username not found")
         if not user.is_password_correct(password):

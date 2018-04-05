@@ -1,5 +1,5 @@
 from flask import redirect, url_for, flash, render_template
-from flask_login import current_user, login_required
+from flask_login import current_user
 
 from app import app
 from ..controllers.forms import LoginForm, RegistrationForm
@@ -25,7 +25,7 @@ def login():
         except AttributeError:
             flash("Wrong password")
             return redirect(url_for('login'))
-        return redirect(url_for('index', title='Home', name=current_user.username))
+        return redirect(url_for('index'))
     return render_template('login.html', form=form, title='Login')
 
 
@@ -43,7 +43,7 @@ def register():
         except ValueError:
             flash("Username exists. Please Login")
             return redirect(url_for('login'))
-        return redirect(url_for('index', title='Home', name=current_user.username))
+        return redirect(url_for('index'))
     return render_template('register.html', form=form, title='Sign Up')
 
 
