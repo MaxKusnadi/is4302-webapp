@@ -1,6 +1,6 @@
 import logging
 
-from flask import Flask, render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -17,13 +17,12 @@ db = SQLAlchemy(app)
 CORS(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-cache = Cache(app)
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 
 # Models
 from .models.user import *
 
 
-@app.route("/")
-def hello():
-    return render_template('hello.html', message="Hello World!")
+# Views
+from .views.login import *

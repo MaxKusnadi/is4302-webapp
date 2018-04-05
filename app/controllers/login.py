@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user
 from app import db, login_manager, cache
 from ..models.user import User
 
+
 @login_manager.user_loader
 def load_user(username):
     return User.query.filter(User.username == username).first()
@@ -11,14 +12,14 @@ def load_user(username):
 
 class LoginController:
 
-    def sign_up(self, username, password):
+    def sign_up(self, username, password, role):
         logging.info("Signup by {}".format(username))
         # Check username exists
         user = self._get_user(username)
         if user:
             logging.error("Username {} exits".format(username))
             raise ValueError("Username exits")
-        user = User(username, password)
+        user = User(username, password, role)
         db.session.add(user)
         db.session.commit()
         login_user(user)

@@ -8,7 +8,7 @@ This follows *MVC* model
 
 `app.controller` is where we control the data flow i.e. what to show, what to store in the database
 
-`app.blockchain` is where we call the blockchain rest server
+be`app.blockchain` is where we call the blockchain rest server
 
 ## How to setup
 - Clone this
