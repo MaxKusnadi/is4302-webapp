@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 CORS(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-cache = Cache(app,config={'CACHE_TYPE': 'simple'})
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
 # Models

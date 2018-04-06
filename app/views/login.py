@@ -42,7 +42,10 @@ def register():
             login_controller.sign_up(username, password, role)
         except ValueError:
             flash("Username exists. Please Login")
-            return redirect(url_for('login'))
+            return redirect(url_for('register'))
+        except AttributeError:
+            flash("Can't register in the blockchain")
+            return redirect(url_for('register'))
         return redirect(url_for('index'))
     return render_template('register.html', form=form, title='Sign Up')
 

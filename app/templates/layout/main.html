@@ -3,6 +3,7 @@
 <head>
   {% include 'layout/head.html' %}
 </head>
+  {% include 'layout/header.html' %}
 <body>
   {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -15,6 +16,8 @@
   {% endwith %}
   {% block content %}
   {% endblock %}
+
+  {% include 'layout/script.html' %}
 
 </body>
 </html>

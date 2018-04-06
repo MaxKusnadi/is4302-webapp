@@ -14,8 +14,8 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField(label='Role', choices=[('Customer', 'customer'),
-                                              ('Company', 'company'),
-                                              ('Regulator', 'regulator'),
-                                              ('Custodian', 'custodian')])
+    role = SelectField(label='Role', choices=[('customer', 'Customer'),
+                                              ('company', 'Company'),
+                                              ('regulator', 'Regulator'),
+                                              ('custodian', 'Custodian')])
     submit = SubmitField('Signup')
