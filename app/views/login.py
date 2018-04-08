@@ -7,6 +7,7 @@ from ..controllers.login import LoginController
 
 login_controller = LoginController()
 
+
 @app.route('/login', methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -57,11 +58,12 @@ def index():
     if current_user.role.lower() == 'customer':
         return render_template('home.html', title='Customer Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'company':
-        return render_template(url_for('companyHome.html'), title='Company Portal Home', name=current_user.username)
+        return render_template('companyHome.html', title='Company Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'custodian':
         return render_template('home.html', title='Custodian Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'regulator':
         return render_template('home.html', title='Regulator Portal Home', name=current_user.username)
+
 
 @app.route('/logout')
 def logout():

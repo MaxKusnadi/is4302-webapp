@@ -26,3 +26,4 @@ from .models.user import *
 
 # Views
 from .views.login import *
+from .views.company import *
