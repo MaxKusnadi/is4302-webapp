@@ -5,7 +5,6 @@ from app import app
 from ..controllers.forms import LoginForm, RegistrationForm
 from ..controllers.login import LoginController
 
-
 login_controller = LoginController()
 
 
@@ -42,7 +41,10 @@ def register():
             login_controller.sign_up(username, password, role)
         except ValueError:
             flash("Username exists. Please Login")
-            return redirect(url_for('login'))
+            return redirect(url_for('register'))
+        except AttributeError:
+            flash("Can't register in the blockchain")
+            return redirect(url_for('register'))
         return redirect(url_for('index'))
     return render_template('register.html', form=form, title='Sign Up')
 
@@ -52,7 +54,15 @@ def register():
 def index():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
-    return render_template('home.html', title='Home', name=current_user.username)
+
+    if current_user.role.lower() == 'customer':
+        return render_template('home.html', title='Customer Portal Home', name=current_user.username)
+    elif current_user.role.lower() == 'company':
+        return render_template('companyHome.html', title='Company Portal Home', name=current_user.username)
+    elif current_user.role.lower() == 'custodian':
+        return render_template('home.html', title='Custodian Portal Home', name=current_user.username)
+    elif current_user.role.lower() == 'regulator':
+        return render_template('home.html', title='Regulator Portal Home', name=current_user.username)
 
 
 @app.route('/logout')

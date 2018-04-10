@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user
 
 from app import db, login_manager, cache
 from ..models.user import User
+from ..blockchain.customer import Customer
 
 
 @login_manager.user_loader
@@ -12,6 +13,9 @@ def load_user(username):
 
 class LoginController:
 
+    def __init__(self):
+        self.blockchain = Customer()
+
     def sign_up(self, username, password, role):
         logging.info("Signup by {}".format(username))
         # Check username exists
@@ -19,6 +23,10 @@ class LoginController:
         if user:
             logging.error("Username {} exits".format(username))
             raise ValueError("Username exits")
+        try:
+            self.blockchain.register_customer(username)
+        except ValueError:
+            raise AttributeError("Can't register in blockchain")
         user = User(username, password, role)
         db.session.add(user)
         db.session.commit()
