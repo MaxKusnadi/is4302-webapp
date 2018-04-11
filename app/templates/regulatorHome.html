@@ -1,0 +1,42 @@
+{%  extends 'layout/regulator/main.html' %}
+{%  block content %}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h1>List of applicants</h1>
+            <p>
+              Welcome, {{ name }}!
+              Please check whether the salaries submitted by the following people are true. Approve and reject accordingly
+            </p>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th> Applicant NRIC </th>
+              <th> Salary </th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+
+            {% for c in customers %}
+              <tr>
+                <td> {{ c.idNo }} </td>
+                <td> {{ c.salary }} </td>
+                <td> <a href="{{ '/approve-registration/' + c.idNo }}">Approve</a> </td>
+                <td> <a href="{{ '/reject-registration/' + c.idNo }}">Reject</a></td>
+              </tr>
+            {% endfor %}
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
+{%  endblock  %}

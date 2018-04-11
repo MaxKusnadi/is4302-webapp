@@ -64,3 +64,6 @@ class LoginController:
     @cache.memoize()
     def _get_user(self, username):
         return User.query.filter(User.username == username).first()
+
+
+login_controller = LoginController()

@@ -3,9 +3,7 @@ from flask_login import current_user
 
 from app import app
 from ..controllers.forms import LoginForm, RegistrationForm
-from ..controllers.login import LoginController
-
-login_controller = LoginController()
+from ..controllers.login import login_controller
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -62,7 +60,7 @@ def index():
     elif current_user.role.lower() == 'custodian':
         return render_template('home.html', title='Custodian Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'regulator':
-        return render_template('regulatorHome.html', title='Regulator Portal Home', name=current_user.username)
+        return redirect(url_for("regulator_home"))
 
 
 @app.route('/logout')

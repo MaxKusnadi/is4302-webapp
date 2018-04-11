@@ -25,7 +25,8 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.Customer",
             "idNo": username,
-            "salary": 0
+            "salary": 0,
+            "verifiedByIRAS": "PENDING"
         }
         r = requests.post(URL+CUSTOMER_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
