@@ -23,17 +23,20 @@ class LoginController:
         if user:
             logging.error("Username {} exits".format(username))
             raise ValueError("Username exits")
+
         try:
+            logging.info("User role: {}".format(role))
             if role == "customer":
                 customer.register_customer(username)
             elif role == "company":
                 company.register_company(username)
             elif role == "custodian":
                 custodian.register_custodian(username)
-            elif role == "iras":
+            elif role == "regulator":
                 iras.register_regulator(username)
         except ValueError:
             raise AttributeError("Can't register in blockchain")
+
         user = User(username, password, role)
         db.session.add(user)
         db.session.commit()
