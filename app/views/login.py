@@ -60,7 +60,7 @@ def index():
     elif current_user.role.lower() == 'company':
         return render_template('companyHome.html', title='Company Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'custodian':
-        return render_template('home.html', title='Custodian Portal Home', name=current_user.username)
+        return render_template('custodianHome.html', title='Custodian Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'regulator':
         return render_template('home.html', title='Regulator Portal Home', name=current_user.username)
 

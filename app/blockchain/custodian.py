@@ -1,5 +1,7 @@
 import logging
-
+import requests
+from ..blockchain import URL
+CUSTODIAN_ENDPOINT="/org.acme.insurance.Custodian"
 
 class Custodian:
 
