@@ -28,7 +28,7 @@ def login():
     return render_template('login.html', form=form, title='Login')
 
 
-@app.route('/register', methods=["GET", "POST"])
+@app.route('/admin', methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -62,7 +62,7 @@ def index():
     elif current_user.role.lower() == 'custodian':
         return render_template('home.html', title='Custodian Portal Home', name=current_user.username)
     elif current_user.role.lower() == 'regulator':
-        return render_template('home.html', title='Regulator Portal Home', name=current_user.username)
+        return render_template('regulatorHome.html', title='Regulator Portal Home', name=current_user.username)
 
 
 @app.route('/logout')

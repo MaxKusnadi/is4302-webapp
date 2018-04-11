@@ -1,9 +1,28 @@
 <header>
-    <div class="yamm">
-      <div class="navbar-collapse collapse">
-        <div class="navbar-brand">
-          <a href="/">Insurance App</a>
-        </div><!-- /.container -->
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.yamm -->
+  <div class="yamm">
+    <div class="navbar-collapse collapse">
+      <div class="container">
+
+        <!-- ============================================================= LOGO ============================================================= -->
+
+        <a class="navbar-brand" href="index.html"><img src={{ url_for('static', filename="assets/images/logo.svg") }} class="logo" alt=""></a>
+
+        <!-- ============================================================= LOGO : END ============================================================= -->
+
+
+        <!-- ============================================================= MAIN NAVIGATION ============================================================= -->
+
+        <ul class="nav navbar-nav">
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+          </li><!-- /.dropdown -->
+        </ul>
+
+
+        <!-- ============================================================= MAIN NAVIGATION : END ============================================================= -->
+
+      </div><!-- /.container -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.yamm -->
 </header>

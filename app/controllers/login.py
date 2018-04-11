@@ -3,7 +3,10 @@ from flask_login import login_user, logout_user
 
 from app import db, login_manager, cache
 from ..models.user import User
-from ..blockchain.customer import Customer
+from ..blockchain.customer import customer
+from ..blockchain.company import company
+from ..blockchain.custodian import custodian
+from ..blockchain.iras import iras
 
 
 @login_manager.user_loader
@@ -13,9 +16,6 @@ def load_user(username):
 
 class LoginController:
 
-    def __init__(self):
-        self.blockchain = Customer()
-
     def sign_up(self, username, password, role):
         logging.info("Signup by {}".format(username))
         # Check username exists
@@ -24,7 +24,14 @@ class LoginController:
             logging.error("Username {} exits".format(username))
             raise ValueError("Username exits")
         try:
-            self.blockchain.register_customer(username)
+            if role == "customer":
+                customer.register_customer(username)
+            elif role == "company":
+                company.register_company(username)
+            elif role == "custodian":
+                custodian.register_custodian(username)
+            elif role == "iras":
+                iras.register_regulator(username)
         except ValueError:
             raise AttributeError("Can't register in blockchain")
         user = User(username, password, role)
@@ -54,4 +61,3 @@ class LoginController:
     @cache.memoize()
     def _get_user(self, username):
         return User.query.filter(User.username == username).first()
-
