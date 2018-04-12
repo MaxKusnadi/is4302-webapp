@@ -3,24 +3,27 @@ import requests
 
 from ..blockchain import URL
 
-<<<<<<< HEAD
-CUSTOMER_ENDPOINT="/org.acme.insurance.Customer"
-FILE_CLAIM="/org.acme.insurance.FileClaim"
-=======
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
->>>>>>> 9886312a19d96d85fe6fe9121831ec38f0d525d0
+FILE_CLAIM = "/org.acme.insurance.FileClaim"
 
 
 class Customer:
 
-    def file_claim(self, claimDesc):
+    def file_claim(self, username, claimDesc):
         data = {
           "$class": "org.acme.insurance.Claim",
           "description": claimDesc,
-          "customer": "resource:org.acme.insurance.Customer#elvin",
-          "policy": "resource:org.acme.insurance.Policy#elvintest"
+          #"customer": "resource:org.acme.insurance.Customer#elvintest",
+          #"policy": "resource:org.acme.insurance.Policy#elvintest"
+          "customer": "resource:org.acme.insurance.Customer#"+username,
+          "policy": "resource:org.acme.insurance.Policy#"+username
         }
         r = requests.post(URL+FILE_CLAIM, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to create claim")
+            logging.info(r.text)
+            raise ValueError("Unable create claim in the blockchain")
         return r.json()
 
     def submit_premium_payment(self):

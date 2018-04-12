@@ -13,8 +13,12 @@ class CustomerController:
     def __init__(self):
         self.blockchain = Customer()
 
-    def file_claim(self, claimDesc):
-        self.blockchain.file_claim(self)
+    def file_claim(self, username, claimDesc):
+        try:
+            result = self.blockchain.file_claim(username, claimDesc)
+        except ValueError:
+            raise AttributeError("Can't file claim in blockchain")
+        return result
 
     def submit_premium_payment(self):
         pass

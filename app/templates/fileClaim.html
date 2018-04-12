@@ -1,33 +1,20 @@
-{%  extends 'layout/main.html' %}
+{%  extends 'layout/customerMain.html' %}
 {%  block content %}
   <main>
     <section id="contact-form">
       <div class="container inner">
 
-        <div class="row">
-          <div class="col-md-8 col-sm-9 center-block text-center">
-            <header>
-              <h1>test</h1>
-              <p>Please login to continue</p>
-            </header>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="row">
-
               <div class="col-sm-12 outer-top-md inner-right-sm text-center">
 
-                <h2>Login</h2>
+                <h2>Attach Relevant Claims Documents:</h2>
 
                 <form id="contactform" class="forms" action="" method="post">
                   {{ form.hidden_tag() }}
 
                   <div class="row">
                     <div class="col-sm-4 center-block text-center">
-                      {{ form.ClaimDesc(class_="form-control", placeholder="ClaimDesc") }}
-                      {% for error in form.ClaimDesc.errors %}
+                      {{ form.claimDesc(class_="form-control", placeholder="Claim Documents") }}
+                      {% for error in form.claimDesc.errors %}
                         <span>{{ error }}</span>
                       {% endfor %}
                     </div><!-- /.col -->
