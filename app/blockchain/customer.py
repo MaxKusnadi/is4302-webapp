@@ -3,8 +3,12 @@ import requests
 
 from ..blockchain import URL
 
+<<<<<<< HEAD
 CUSTOMER_ENDPOINT="/org.acme.insurance.Customer"
 FILE_CLAIM="/org.acme.insurance.FileClaim"
+=======
+CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
+>>>>>>> 9886312a19d96d85fe6fe9121831ec38f0d525d0
 
 
 class Customer:
@@ -33,15 +37,19 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.Customer",
             "idNo": username,
-            "salary": 0
+            "salary": 0,
+            "verifiedByIRAS": "PENDING"
         }
         r = requests.post(URL+CUSTOMER_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
-            logging.error("Unable to create")
+            logging.error("Unable to create customer")
             logging.info(r.text)
             raise ValueError("Unable to create user in blockchain")
         return r.json()
 
     def add_salary(self, username, salary):
         pass
+
+
+customer = Customer()

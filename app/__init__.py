@@ -27,4 +27,8 @@ from .models.user import *
 # Views
 from .views.login import *
 from .views.company import *
+<<<<<<< HEAD
 from .views.customer import *
+=======
+from .views.regulator import *
+>>>>>>> 9886312a19d96d85fe6fe9121831ec38f0d525d0
