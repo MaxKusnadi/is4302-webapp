@@ -1,0 +1,37 @@
+{%  extends 'layout/companyMain.html' %}
+{%  block content %}
+View All Policy Applications
+<table id="myTable" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Policy Application ID</th>
+        <th>Customer ID</th>
+        <th>Policy ID</th>
+        <th>Application Date</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for a in appl %}
+    <tr>
+        <td>{{ a['applyID'] }}</td>
+        <td>
+            {% set str = a['customer'].split('#') %}
+            {{ str[1] }}
+        </td>
+        <td>
+            {% set str = a['policy'].split('#') %}
+            {{ str[1] }}
+        </td>
+        <td>{{ a['applyDate'] }}</td>
+        <td>{{ a['status'] }}</td>
+        {% if a['status']=='PENDING' %}
+        <td><a href="{{ url_for('companyApprovePolicyAppl', id=a['applyID']) }}">Approve</a></td>
+        <td><a href="{{ url_for('companyRejectPolicyAppl', id=a['applyID']) }}">Reject</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{%  endblock  %}
