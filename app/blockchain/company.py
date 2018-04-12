@@ -4,6 +4,7 @@ import datetime
 
 from ..blockchain import URL
 
+REGISTRATION_ENDPOINT = "/org.acme.insurance.InsuranceCompany"
 CUST_ENDPOINT ="/org.acme.insurance.Customer"
 POLICY_ENDPOINT ="/org.acme.insurance.Policy"
 POLICYAPPL_ENDPOINT="/org.acme.insurance.PolicyApplication"
@@ -14,8 +15,22 @@ APPROVECLAIM_ENDPOINT="/org.acme.insurance.ApproveClaim"
 REJECTCLAIM_ENDPOINT="/org.acme.insurance.RejectClaim"
 SUBMITREIMB_ENDPOINT="/org.acme.insurance.SubmitReimbursement"
 
-
 class Company:
+
+    def register_company(self, username):
+        logging.info("Registering {} into the blockchain".format(username))
+        data = {
+            "$class": "org.acme.insurance.InsuranceCompany",
+            "companyID": username,
+            "name": "Admin"
+        }
+        r = requests.post(URL + REGISTRATION_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to create company")
+            logging.info(r.text)
+            raise ValueError("Unable to create company in blockchain")
+        return r.json()
 
     def register_policy(self):
         pass
@@ -127,3 +142,6 @@ class Company:
 
     def terminate_customer_policy(self):
         pass
+
+
+company = Company()
