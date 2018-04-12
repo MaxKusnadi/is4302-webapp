@@ -19,3 +19,8 @@ class RegistrationForm(FlaskForm):
                                               ('regulator', 'Regulator'),
                                               ('custodian', 'Custodian')])
     submit = SubmitField('Signup')
+
+class FileClaimForm(FlaskForm):
+    #assume claim description to be legitimate
+    claimDesc = StringField('Claim Description', validators=[DataRequired()])
+    submit = SubmitField('Submit')

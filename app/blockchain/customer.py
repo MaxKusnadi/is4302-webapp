@@ -4,12 +4,20 @@ import requests
 from ..blockchain import URL
 
 CUSTOMER_ENDPOINT="/org.acme.insurance.Customer"
+FILE_CLAIM="/org.acme.insurance.FileClaim"
 
 
 class Customer:
 
-    def file_claim(self):
-        pass
+    def file_claim(self, claimDesc):
+        data = {
+          "$class": "org.acme.insurance.Claim",
+          "description": claimDesc,
+          "customer": "resource:org.acme.insurance.Customer#elvin",
+          "policy": "resource:org.acme.insurance.Policy#elvintest"
+        }
+        r = requests.post(URL+FILE_CLAIM, json=data)
+        return r.json()
 
     def submit_premium_payment(self):
         pass
