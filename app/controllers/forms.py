@@ -20,7 +20,8 @@ class RegistrationForm(FlaskForm):
                                               ('custodian', 'Custodian')])
     submit = SubmitField('Signup')
 
-class FileClaimForm(FlaskForm):
-    #assume claim description to be legitimate
-    claimDesc = StringField('Claim Description', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+class ReimbursementForm(FlaskForm):
+    claim = StringField('Claim ID', validators=[DataRequired()])
+    reimbtype = SelectField(label='Reimbursement Code', choices=[('INC1', 'INC1'),
+                                              ('INC2', 'INC2')])
+    submit = SubmitField('Submit Reimbursement')
