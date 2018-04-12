@@ -1,0 +1,58 @@
+{%  extends 'layout/company/main.html' %}
+{%  block content %}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h1>Customer's Claim Requests</h1>
+            <p>
+              Welcome, {{ name }}!
+              Please review the following customer claim requests!
+            </p>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table id="myTable" class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th>Claim ID</th>
+              <th>Description</th>
+              <th>Date Submitted</th>
+              <th>Status</th>
+              <th>Customer ID</th>
+              <th>Policy ID</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for c in claim %}
+              <tr>
+                <td>{{ c['claimID'] }}</td>
+                <td>{{ c['description'] }}</td>
+                <td>{{ c['dateSubmitted'] }}</td>
+                <td>{{ c['status'] }}</td>
+                <td>
+                  {% set str = c['customer'].split('#') %}
+                  {{ str[1] }}
+                </td>
+                <td>
+                  {% set str = c['policy'].split('#') %}
+                  {{ str[1] }}
+                </td>
+                {% if c['status']=='PENDING' %}
+                  <td><a href="{{ url_for('submit_reimbursement', id=c['claimID']) }}">Submit Reimbursement</a></td>
+                  <td><a href="{{ url_for('reject_claim', id=c['claimID']) }}">Reject</a></td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
+{%  endblock  %}

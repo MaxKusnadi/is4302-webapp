@@ -1,6 +1,5 @@
 import logging
 import requests
-import datetime
 
 from ..blockchain import URL
 
@@ -14,6 +13,7 @@ CLAIM_ENDPOINT="/org.acme.insurance.Claim"
 APPROVECLAIM_ENDPOINT="/org.acme.insurance.ApproveClaim"
 REJECTCLAIM_ENDPOINT="/org.acme.insurance.RejectClaim"
 SUBMITREIMB_ENDPOINT="/org.acme.insurance.SubmitReimbursement"
+
 
 class Company:
 
@@ -46,7 +46,7 @@ class Company:
         r = requests.get(URL + POLICYAPPL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
-            logging.error("Unable to create")
+            logging.error("Unable to retrieve all policy applications")
             logging.info(r.text)
             raise ValueError("Unable to retrieve all policy applications from blockchain")
         return r.json()
@@ -62,7 +62,7 @@ class Company:
         r = requests.post(URL + CUSTPOL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
-            logging.error("Unable to create")
+            logging.error("Unable to create customer policy")
             logging.info(r.text)
             raise ValueError("Unable create customer policy in the blockchain")
         return r.json()
@@ -76,7 +76,7 @@ class Company:
         r = requests.post(URL + REJECTPOLAPPL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
-            logging.error("Unable to create")
+            logging.error("Unable to reject policy application")
             logging.info(r.text)
             raise ValueError("Unable reject policy application in the blockchain")
         return r.json()
@@ -91,7 +91,7 @@ class Company:
         r = requests.post(URL + SUBMITREIMB_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
-            logging.error("Unable to create")
+            logging.error("Unable to submit reimbursement")
             logging.info(r.text)
             raise ValueError("Unable submit reimbursement in the blockchain")
         return r.json()

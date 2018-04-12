@@ -1,0 +1,42 @@
+<header>
+  <div class="yamm">
+    <div class="navbar-collapse collapse">
+
+      <div class="container">
+        <a class="navbar-brand" href="#"><img src={{ url_for('static', filename="assets/images/logo.svg") }} class="logo" alt=""></a>
+
+        <!-- ============================================================= MAIN NAVIGATION ============================================================= -->
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer</a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('register_customer') }}">Register Customer</a></li>
+            </ul><!-- /.dropdown-menu -->
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Policy</a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('register_policy') }}">Register Policy</a></li>
+              <li><a href="{{ url_for('view_policy_application') }}">View Customer Policy Application</a></li>
+            </ul><!-- /.dropdown-menu -->
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Claim</a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('view_claim') }}">View Customer Claim</a></li>
+{#              <li><a href="#">Submit Reimbursement</a></li>#}
+              <li><a href="#">Submit Cash Out</a></li>
+            </ul><!-- /.dropdown-menu -->
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="{{ url_for('logout') }}">Logout</a>
+          </li><!-- /.dropdown -->
+        </ul><!-- /.nav -->
+        <!-- ============================================================= MAIN NAVIGATION : END ============================================================= -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.yamm -->
+</header>

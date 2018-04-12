@@ -8,11 +8,11 @@
         } );
     </script>
 </head>
-  {% include 'layout/companyHeader.html' %}
+  {% include 'layout/company/header.html' %}
 <body>
   {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
+        <ul class="text-center light-color">
             {% for message in messages %}
             <li>{{ message }}</li>
             {% endfor %}
