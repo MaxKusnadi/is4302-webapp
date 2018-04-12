@@ -20,12 +20,12 @@ class Customer:
     def view_pool_reimbursement(self):
         pass
 
-    def register_customer(self, username):
+    def register_customer(self, username, salary=0):
         logging.info("Registering {} into the blockchain".format(username))
         data = {
             "$class": "org.acme.insurance.Customer",
             "idNo": username,
-            "salary": 0,
+            "salary": salary,
             "verifiedByIRAS": "PENDING"
         }
         r = requests.post(URL+CUSTOMER_ENDPOINT, json=data)

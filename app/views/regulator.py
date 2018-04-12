@@ -8,17 +8,23 @@ from ..controllers.regulator import regulator_controller
 @app.route('/regulator-home', methods=["GET"])
 @login_required
 def regulator_home():
+    if current_user.role != "regulator":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
     result = []
     try:
         result = regulator_controller.get_pending_customer_registration()
     except ValueError:
         flash("Unable to get user information. Please try again later")
-    return render_template('regulatorHome.html', customers=result, title='Regulator Portal Home', name=current_user.username)
+    return render_template('regulator/home.html', customers=result, title='Regulator Portal Home', name=current_user.username)
 
 
 @app.route('/approve-registration/<username>', methods=["GET"])
 @login_required
 def approve_registration(username):
+    if current_user.role != "regulator":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
     try:
         regulator_controller.approve_registration(username)
     except ValueError:
@@ -29,6 +35,9 @@ def approve_registration(username):
 @app.route('/reject-registration/<username>', methods=["GET"])
 @login_required
 def reject_registration(username):
+    if current_user.role != "regulator":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
     try:
         regulator_controller.reject_registration(username)
     except ValueError:
