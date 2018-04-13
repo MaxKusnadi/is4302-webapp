@@ -9,13 +9,42 @@ login_controller = LoginController()
 custodian_controller = CustodianController()
 
 
-@app.route('/custodianViewReimbursement')
-def custodianViewReimbursement():
-    return render_template('custodianViewReimbursement.html', title='View Reimbursement', name=current_user.username)
+@app.route('/custodianViewPendingReimbursement', methods=["GET"])
+def custodianViewPendingReimbursement():
+    result = []
+    try:
+        result = custodian_controller.get_pending_reimbursement()
+    except ValueError:
+        flash("Unable to get reimbursement information. Please try again later")
+    return render_template('custodianViewPendingReimbursement.html', reimbursements=result,title='View Pending Reimbursement', name=current_user.username)
 
-@app.route('/custodianViewCashout')
-def custodianViewCashout():
-    return render_template('custodianViewCashout.html', title='View Cashout', name=current_user.username)
+@app.route('/custodianViewAllReimbursement')
+def custodianViewAllReimbursement():
+    result = []
+    try:
+        result = custodian_controller.get_reimbursement()
+    except ValueError:
+        flash("Unable to get reimbursement information. Please try again later")
+    return render_template('custodianViewAllReimbursement.html', reimbursements=result, title='View All Reimbursement', name=current_user.username)
+
+@app.route('/custodianViewPendingCashout')
+def custodianViewPendingCashout():
+    result = []
+    try:
+        result = custodian_controller.get_pending_cashout()
+    except ValueError:
+        flash("Unable to get pending cashout information. Please try again later")
+    return render_template('custodianViewPendingCashout.html', cashouts=result, title='View Pending Cashout', name=current_user.username)
+
+@app.route('/custodianViewAllCashout')
+def custodianViewAllCashout():
+    result = []
+    try:
+        result = custodian_controller.get_cashout()
+    except ValueError:
+        flash("Unable to get cashout information. Please try again later")
+    return render_template('custodianViewAllCashout.html', cashouts=result, title='View Pending Cashout', name=current_user.username)
+
 
 @app.route('/custodianVerifyPremium')
 def custodianVerifyPremium():

@@ -1,0 +1,47 @@
+<header>
+    <div class="yamm">
+      <div class="navbar-collapse collapse">
+        <div class="navbar-brand">
+          <a href="{{ url_for('index') }}">Insurance Portal [Insurance Company]</a>
+        </div><!-- /.container -->
+
+        <div class="container">
+            <!-- ============================================================= MAIN NAVIGATION ============================================================= -->
+            <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="{{ url_for('custodianViewPendingReimbursement')}}" class="dropdown-toggle" data-toggle="dropdown">View Pending Reimbursement Requests</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="{{ url_for('custodianViewAllReimbursement')}}" class="dropdown-toggle" data-toggle="dropdown">View All Reimbursements</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="{{ url_for('custodianViewPendingCashout')}}" class="dropdown-toggle" data-toggle="dropdown">View Pending Cashout Requests</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="{{ url_for('custodianViewAllCashout')}}" class="dropdown-toggle" data-toggle="dropdown">View All Cashouts</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="{{ url_for('custodianVerifyPremium')}}" class="dropdown-toggle" data-toggle="dropdown">Verify Premium Payments</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Features</a>
+            </li><!-- /.dropdown -->
+
+            <li class="dropdown">
+                <a href="{{ url_for('logout') }}" class="dropdown-toggle" data-toggle="dropdown">Logout</a>
+            </li><!-- /.dropdown -->
+            </ul><!-- /.nav -->
+            <!-- ============================================================= MAIN NAVIGATION : END ============================================================= -->
+        </div><!-- /.container -->
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.yamm -->
+</header>
