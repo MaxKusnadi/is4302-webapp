@@ -14,10 +14,12 @@ class Customer:
           "$class": "org.acme.insurance.Claim",
           "description": claimDesc,
           #"customer": "resource:org.acme.insurance.Customer#elvintest",
-          #"policy": "resource:org.acme.insurance.Policy#elvintest"
+          #"policy": "elvintest"
+          "policy": username
           "customer": "resource:org.acme.insurance.Customer#"+username,
-          "policy": "resource:org.acme.insurance.Policy#"+username
+          #"resource:org.acme.insurance.Policy#"+
         }
+        logging.info(username+" "+claimDesc)
         r = requests.post(URL+FILE_CLAIM, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:

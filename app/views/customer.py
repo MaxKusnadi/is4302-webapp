@@ -10,6 +10,11 @@ login_controller = LoginController()
 customer_controller = CustomerController()
 
 
+@app.route('/customer-home', methods=["GET"])
+@login_required
+def customer_home():
+    return render_template('customer/home.html', title='Customer Home', name=current_user.username)
+
 @app.route('/fileClaim', methods=["GET", "POST"])
 @login_required
 def file_claim():
@@ -23,4 +28,9 @@ def file_claim():
             flash("test")
             return redirect(url_for('login'))
         return redirect(url_for('index'))
-    return render_template('fileClaim.html', form=form, title='File Claim', name=current_user.username)
+    return render_template('customer/fileClaim.html', form=form, title='File Claim', name=current_user.username)
+
+@app.route('/submitPremiumPayment', methods=["GET", "POST"])
+@login_required
+def submit_premium_payment():
+    return render_template('customer/submitPremiumPayment.html', title='Submit Premium Payment', name=current_user.username)

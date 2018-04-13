@@ -3,11 +3,11 @@
 <head>
   {% include 'layout/head.html' %}
 </head>
-  {% include 'layout/customerHeader.html' %}
+  {% include 'layout/customer/header.html' %}
 <body>
   {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
+        <ul class="text-center light-color">
             {% for message in messages %}
             <li>{{ message }}</li>
             {% endfor %}
