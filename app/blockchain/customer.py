@@ -4,22 +4,47 @@ import requests
 from ..blockchain import URL
 
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
+POLICYAPPL_ENDPOINT = "/org.acme.insurance.PolicyApplication"
 FILE_CLAIM = "/org.acme.insurance.FileClaim"
 
 
 class Customer:
 
-    def file_claim(self, username, claimDesc):
+    def get_own_data(self, username):
+        logging.info("Retrieving Own Data")
         data = {
-          "$class": "org.acme.insurance.Claim",
-          "description": claimDesc,
-          #"customer": "resource:org.acme.insurance.Customer#elvintest",
-          #"policy": "elvintest"
-          "policy": username
-          "customer": "resource:org.acme.insurance.Customer#"+username,
-          #"resource:org.acme.insurance.Policy#"+
+            "$class": "org.acme.insurance.Customer",
         }
-        logging.info(username+" "+claimDesc)
+        r = requests.get(URL + CUSTOMER_ENDPOINT + "/" + username, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to retrieve")
+            logging.info(r.text)
+            raise ValueError("Unable retrieve from the blockchain")
+        return r.json()
+
+    def get_policy_appl(self, applyid):
+        logging.info("Retrieving Policy Application")
+        data = {
+            "$class": "org.acme.insurance.PolicyApplication",
+        }
+        r = requests.get(URL + POLICYAPPL_ENDPOINT + "/" + applyid, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to retrieve")
+            logging.info(r.text)
+            raise ValueError("Unable retrieve from the blockchain")
+        return r.json()
+
+    def file_claim(self, policyid, username, claimdesc):
+        logging.info("File Claim")
+        data = {
+          "$class": "org.acme.insurance.FileClaim",
+          "policyId": policyid,
+          "claimDesc": claimdesc,
+          "customer": "resource:org.acme.insurance.Customer#"+username
+        }
+        logging.info(username+" "+claimdesc+" "+policyid)
         r = requests.post(URL+FILE_CLAIM, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
@@ -55,6 +80,5 @@ class Customer:
 
     def add_salary(self, username, salary):
         pass
-
 
 customer = Customer()
