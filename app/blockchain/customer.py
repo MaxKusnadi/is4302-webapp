@@ -5,7 +5,8 @@ from ..blockchain import URL
 
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
 POLICYAPPL_ENDPOINT = "/org.acme.insurance.PolicyApplication"
-FILE_CLAIM = "/org.acme.insurance.FileClaim"
+FILE_CLAIM_ENDPOINT = "/org.acme.insurance.FileClaim"
+SUBMIT_PREMIUM_PAYMENT_ENDPOINT = "/org.acme.insurance.SubmitPremiumPayment"
 
 
 class Customer:
@@ -44,8 +45,8 @@ class Customer:
           "claimDesc": claimdesc,
           "customer": "resource:org.acme.insurance.Customer#"+username
         }
-        logging.info(username+" "+claimdesc+" "+policyid)
-        r = requests.post(URL+FILE_CLAIM, json=data)
+        #logging.info(username+" "+claimdesc+" "+policyid)
+        r = requests.post(URL + FILE_CLAIM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create claim")
@@ -53,8 +54,20 @@ class Customer:
             raise ValueError("Unable create claim in the blockchain")
         return r.json()
 
-    def submit_premium_payment(self):
-        pass
+    def submit_premium_payment(self, policyid, username):
+        logging.info("Submit Premium Payment")
+        data = {
+          "$class": "org.acme.insurance.SubmitPremiumPayment",
+          "policyId": policyid,
+          "customer": "resource:org.acme.insurance.Customer#"+username
+        }
+        r = requests.post(URL + SUBMIT_PREMIUM_PAYMENT_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to create payment")
+            logging.info(r.text)
+            raise ValueError("Unable create premium payment in the blockchain")
+        return r.json()
 
     def view_money_pool(self):
         pass
