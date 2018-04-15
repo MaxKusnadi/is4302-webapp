@@ -23,6 +23,18 @@ class CustomerController:
         except ValueError:
             raise AttributeError("Can't retrieve policy application from blockchain")
 
+    def view_money_pool(self, username):
+        try:
+            return customer.view_money_pool(username)
+        except ValueError:
+            raise AttributeError("Can't retrieve money pool from blockchain")
+
+    def view_money_pool_reimbursed(self, policyid, fromDate, toDate):
+        try:
+            return customer.view_money_pool_reimbursed(policyid, fromDate, toDate)
+        except ValueError:
+            raise AttributeError("Can't retrieve money pool reimbursed from blockchain")
+
     def file_claim(self, policyid, username, claimdesc):
         try:
             return customer.file_claim(policyid, username, claimdesc)

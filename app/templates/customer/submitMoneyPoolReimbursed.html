@@ -1,0 +1,63 @@
+{%  extends 'layout/customer/main.html' %}
+{%  block content %}
+  <main>
+    <section id="contact-form">
+      <div class="container inner">
+
+              <div class="col-sm-12 outer-top-md inner-right-sm text-center">
+
+                <h4>Enter Selected Policy Id:</h4>
+
+                <form id="contactform" class="forms" action="" method="post">
+                  {{ form.hidden_tag() }}
+
+                  <div class="row">
+                    <div class="col-sm-4 center-block text-center">
+                      {{ form.policyid(class_="form-control", placeholder="Policy Id") }}
+                      {% for error in form.policyid.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+
+                  <h4>Reimbursement From:</h4>
+
+                  <div class="row">
+                    <div class="col-sm-4 center-block text-center">
+                      {{ form.fromDate(class_="form-control", placeholder="e.g. 09-10-2018") }}
+                      {% for error in form.fromDate.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+
+                  <h4>To:</h4>
+
+                  <div class="row">
+                    <div class="col-sm-4 center-block text-center">
+                      {{ form.toDate(class_="form-control", placeholder="e.g. 09-11-2018") }}
+                      {% for error in form.toDate.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+
+                  <div class="row">
+                    <div class="col-sm-4 center-block text-center">
+                      {{ form.submit(class_="btn btn-default btn-submit") }}
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+
+                </form>
+
+              </div><!-- ./col -->
+
+            </div><!-- /.row -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+
+      </div><!-- /.container -->
+    </section>
+  </main>
+
+{%  endblock  %}
