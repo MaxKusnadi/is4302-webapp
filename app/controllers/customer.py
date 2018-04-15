@@ -41,7 +41,10 @@ class CustomerController:
         except ValueError:
             raise AttributeError("Can't file claim in blockchain")
 
-    def submit_premium_payment(self):
-        pass
+    def submit_premium_payment(self, policyid, username):
+        try:
+            return customer.submit_premium_payment(policyid, username)
+        except ValueError:
+            raise AttributeError("Can't submit premium payment in blockchain")
 
 customer_controller = CustomerController()

@@ -2,7 +2,7 @@ from flask import request, redirect, url_for, flash, render_template
 from flask_login import current_user, login_required
 
 from app import app
-from ..controllers.forms import FileClaimForm
+from ..controllers.forms import FileClaimForm, SubmitPremiumPaymentForm
 from ..controllers.login import LoginController
 from ..controllers.customer import customer_controller
 
@@ -42,8 +42,9 @@ def file_claim():
         try:
             customer_controller.file_claim(policyid, username, claimDesc)
         except ValueError:
-            flash("test")
+            flash("Couldnt file claim")
             return redirect(url_for('login'))
+        flash("Claim Filed")
         return redirect(url_for('index'))
     return render_template('customer/fileClaim.html', form=form, title='File Claim', name=current_user.username)
 
@@ -69,7 +70,23 @@ def submit_policy_appl():
 
     return redirect(url_for('view_policy'))
 
-@app.route('/submit-premium', methods=["GET", "POST"])
+@app.route('/submit-premium-payment', methods=["GET", "POST"])
 @login_required
 def submit_premium_payment():
-    return render_template('customer/submitPremiumPayment.html', title='Submit Premium Payment', name=current_user.username)
+    if current_user.role.lower() != "customer":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+
+    form = SubmitPremiumPaymentForm()
+
+    if form.validate_on_submit():
+        policyid = form.policyid.data
+        username = current_user.username
+        try:
+            customer_controller.submit_premium_payment(policyid, username)
+        except ValueError:
+            flash("Couldnt submit premium payment")
+            return redirect(url_for('login'))
+        flash("Payment is Confirmed")
+        return redirect(url_for('index'))
+    return render_template('customer/submitPremiumPayment.html', form=form, title='Submit Premium Payment', name=current_user.username)

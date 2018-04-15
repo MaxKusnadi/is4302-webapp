@@ -40,3 +40,7 @@ class FileClaimForm(FlaskForm):
     #assume claim description to be legitimate
     claimDesc = StringField('Claim Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class SubmitPremiumPaymentForm(FlaskForm):
+    policyid = StringField('Policy Id', validators=[DataRequired()])
+    submit = SubmitField('Confirm Payment')
