@@ -2,7 +2,7 @@ from flask import request, redirect, url_for, flash, render_template
 from flask_login import current_user, login_required
 
 from app import app
-from ..controllers.forms import FileClaimForm, SubmitPremiumPaymentForm
+from ..controllers.forms import FileClaimForm, SubmitPremiumPaymentForm, ViewMoneyPoolReimbursedForm
 from ..controllers.login import LoginController
 from ..controllers.customer import customer_controller
 
@@ -24,7 +24,38 @@ def view_my_policies():
         return redirect(url_for('index'))
     data = customer_controller.get_own_data(current_user.username)
 
-    return render_template('customer/viewMyPolicies.html', title='View My Policies', cust_policy=data)
+    return render_template('customer/viewMyPolicies.html', title='View My Policies', cust_policy=data, name=current_user.username)
+
+@app.route('/view-money-pool', methods=["GET","POST"])
+@login_required
+def view_money_pool():
+    if current_user.role.lower() != "customer":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+    data = customer_controller.view_money_pool(current_user.username)
+
+    return render_template('customer/viewMoneyPool.html', title='View Policies Money Pool', policy_money_pool=data, name=current_user.username)
+
+@app.route('/view-money-pool-reimbursed', methods=["GET","POST"])
+@login_required
+def view_money_pool_reimbursed():
+    if current_user.role.lower() != "customer":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+
+    form = ViewMoneyPoolReimbursedForm()
+    result = []
+    if form.validate_on_submit():
+        policyid = form.policyid.data
+        fromDate = form.fromDate.data
+        toDate = form.toDate.data
+        try:
+            result = customer_controller.view_money_pool_reimbursed(policyid, fromDate, toDate)
+        except ValueError:
+            flash("Couldnt view money pool reimbused")
+            return redirect(url_for('login'))
+        return render_template('customer/viewMoneyPoolReimbursed.html', moneyPool=result, title='View Money Pool Reimbursed', name=current_user.username)
+    return render_template('customer/submitMoneyPoolReimbursed.html', form=form, title='Submit Money Pool Reimbursed', name=current_user.username)
 
 @app.route('/file-claim', methods=["GET","POST"])
 @login_required

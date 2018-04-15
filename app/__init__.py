@@ -29,3 +29,4 @@ from .views.login import *
 from .views.company import *
 from .views.regulator import *
 from .views.customer import *
+from .views.custodian import *

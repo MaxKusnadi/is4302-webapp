@@ -1,0 +1,47 @@
+{%  extends 'layout/customer/main.html' %}
+{%  block content %}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h2>Reimbursement from {{moneyPool.poolID}} with total pool {{moneyPool.amount}}</h2>
+            <p>
+              Welcome, {{ name }}!
+            </p>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table id="myTable" class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th>Reimbursement Number</th>
+              <th>Reimburse Date</th>
+              <th>Reimburse Amount</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Reimbursed By</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for r in moneyPool['reimbursements'] %}
+              <tr>
+                <td>{{ r['transactionId'] }}</td>
+                <td>{{ r['dateReimbursed'] }}</td>
+                <td>{{ r['amount'] }}</td>
+                <td>{{ r['typeCode'] }}</td>
+                <td>{{ r['status'] }}</td>
+                <td>{{ r['claim.customer.idNo'] }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
+{%  endblock  %}

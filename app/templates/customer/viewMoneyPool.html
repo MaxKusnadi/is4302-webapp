@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-md-8 col-sm-10 center-block text-center">
           <header>
-            <h2>My Policies</h2>
+            <h2>Policies' Money Pool</h2>
             <p>
               Welcome, {{ name }}!
             </p>
@@ -16,30 +16,21 @@
           <table id="myTable" class="table" style="margin-top:20px">
             <thead class="thead-inverse">
             <tr>
-              <th>Policy Number</th>
-              <th>Start Date</th>
-              <th>Mature Date</th>
-              <th>Policy Status</th>
-              <th>CashOut Status</th>
+              <th>Money Pool Number</th>
+              <th>Total Amount</th>
               <th>Policy ID</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            {% for p in cust_policy['policies'] %}
+            {% for p in policy_money_pool %}
               <tr>
                 <td>{{ p['transactionId'] }}</td>
-                <td>{{ p['policyStartDate'] }}</td>
-                <td>{{ p['policyMaturedDate'] }}</td>
-                <td>{{ p['status'] }}</td>
-                <td>{{ p['cashOutStatus'] }}</td>
+                <td>{{ p['amount'] }}</td>
                 <td>
                   {% set str = p['policy'].split('#') %}
                   {{ str[1] }}
                 </td>
-                {% if p['status']=='ACTIVE' %}
-                  <td><a href="{{ url_for('file_claim', id= p['policy'].split('#')[1])}}">File Claim</a></td>
-                {% endif %}
               </tr>
             {% endfor %}
             </tbody>
