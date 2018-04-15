@@ -1,0 +1,50 @@
+{%  extends 'layout/customer/main.html' %}
+{%  block content %}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h1>View Available CashOuts</h1>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table id="myTable" class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th>Policy Number</th>
+              <th>Start Date</th>
+              <th>Mature Date</th>
+              <th>Policy Status</th>
+              <th>CashOut Status</th>
+              <th>Policy ID</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in cust['policies'] %}
+              <tr>
+                <td>{{ p['transactionId'] }}</td>
+                <td>{{ p['policyStartDate'] }}</td>
+                <td>{{ p['policyMaturedDate'] }}</td>
+                <td>{{ p['status'] }}</td>
+                <td>{{ p['cashOutStatus'] }}</td>
+                <td>
+                  {% set str = p['policy'].split('#') %}
+                  {{ str[1] }}
+                </td>
+                {% if p['cashOutStatus']=='VALID' %}
+                  <td><a href="#">Submit CashOut</a></td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
+{%  endblock  %}

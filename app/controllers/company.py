@@ -75,5 +75,19 @@ class CompanyController:
         except ValueError:
             raise AttributeError("Can't submit reimbursement in blockchain")
 
+    def get_all_cust(self):
+        logging.info("Retrieving All Customers")
+        try:
+            return company.get_all_cust()
+        except ValueError:
+            raise AttributeError("Can't retrieve from the blockchain")
+
+    def submit_cashout(self):
+        logging.info("Submit CashOut")
+        try:
+            return company.submit_cashout()
+        except ValueError:
+            raise AttributeError("Can't create in the blockchain")
+
 
 company_controller = CompanyController()

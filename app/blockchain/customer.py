@@ -4,7 +4,9 @@ import requests
 from ..blockchain import URL
 
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
+POLICY_ENDPOINT = "/org.acme.insurance.Policy"
 POLICYAPPL_ENDPOINT = "/org.acme.insurance.PolicyApplication"
+SUBMITPOLICYAPPL_ENDPOINT = "/org.acme.insurance.SubmitPolicyApplication"
 FILE_CLAIM = "/org.acme.insurance.FileClaim"
 
 
@@ -13,7 +15,7 @@ class Customer:
     def get_own_data(self, username):
         logging.info("Retrieving Own Data")
         data = {
-            "$class": "org.acme.insurance.Customer",
+            "$class": "org.acme.insurance.Customer"
         }
         r = requests.get(URL + CUSTOMER_ENDPOINT + "/" + username, json=data)
         logging.info("Status code: {}".format(r.status_code))
@@ -23,10 +25,38 @@ class Customer:
             raise ValueError("Unable retrieve from the blockchain")
         return r.json()
 
+    def get_policies(self):
+        logging.info("Retrieving Policies")
+        data = {
+            "$class": "org.acme.insurance.Policy"
+        }
+        r = requests.get(URL + POLICY_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to retrieve")
+            logging.info(r.text)
+            raise ValueError("Unable retrieve policies in blockchain")
+        return r.json()
+
+    def submit_policy_appl(self, username, policyid):
+        logging.info("Submit Policy Application")
+        data = {
+            "$class": "org.acme.insurance.SubmitPolicyApplication",
+            "newCust": "resource:org.acme.insurance.Customer#"+username,
+            "newPolicy": "resource:org.acme.insurance.Policy#"+policyid
+        }
+        r = requests.post(URL + SUBMITPOLICYAPPL_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to create")
+            logging.info(r.text)
+            raise ValueError("Unable create in the blockchain")
+        return r.json()
+
     def get_policy_appl(self, applyid):
         logging.info("Retrieving Policy Application")
         data = {
-            "$class": "org.acme.insurance.PolicyApplication",
+            "$class": "org.acme.insurance.PolicyApplication"
         }
         r = requests.get(URL + POLICYAPPL_ENDPOINT + "/" + applyid, json=data)
         logging.info("Status code: {}".format(r.status_code))
