@@ -96,6 +96,19 @@ class Company:
             raise ValueError("Unable submit reimbursement in the blockchain")
         return r.json()
 
+    def get_all_cust(self):
+        logging.info("Getting All Customers")
+        data = {
+            "$class": "org.acme.insurance.Customer"
+        }
+        r = requests.get(URL + CUST_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to retrieve all customers")
+            logging.info(r.text)
+            raise ValueError("Unable to retrieve all customers from blockchain")
+        return r.json()
+
     def submit_cashout(self):
         pass
 

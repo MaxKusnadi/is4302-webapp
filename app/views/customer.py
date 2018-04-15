@@ -79,6 +79,28 @@ def file_claim():
         return redirect(url_for('index'))
     return render_template('customer/fileClaim.html', form=form, title='File Claim', name=current_user.username)
 
+@app.route('/view-policy', methods=["GET","POST"])
+@login_required
+def view_policy():
+    if current_user.role.lower() != "customer":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+    poldata = customer_controller.get_policies()
+    custdata = customer_controller.get_own_data(current_user.username)
+
+    return render_template('customer/viewPolicy.html', title='View My Policies', poldata=poldata, custdata=custdata)
+
+@app.route('/submit-policy-appl', methods=["GET","POST"])
+@login_required
+def submit_policy_appl():
+    if current_user.role.lower() != "customer":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+    policyid = request.args.get("policy")
+    customer_controller.submit_policy_appl(current_user.username, policyid)
+
+    return redirect(url_for('view_policy'))
+
 @app.route('/submit-premium-payment', methods=["GET", "POST"])
 @login_required
 def submit_premium_payment():

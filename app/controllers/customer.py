@@ -17,6 +17,18 @@ class CustomerController:
         except ValueError:
             raise AttributeError("Can't retrieve own data from blockchain")
 
+    def get_policies(self):
+        try:
+            return customer.get_policies()
+        except ValueError:
+            raise AttributeError("Can't retrieve policies from blockchain")
+
+    def submit_policy_appl(self, username, policyid):
+        try:
+            return customer.submit_policy_appl(username, policyid)
+        except ValueError:
+            raise AttributeError("Can't submit policy application in blockchain")
+
     def get_policy_appl(self, applyid):
         try:
             return customer.get_policy_appl(applyid)

@@ -1,0 +1,52 @@
+{%  extends 'layout/customer/main.html' %}
+{%  block content %}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h1>View Policies</h1>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table id="myTable" class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th>Policy ID</th>
+              <th>Description</th>
+              <th>Duration (Years)</th>
+              <th>Money Pool ID</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in poldata %}
+              <tr>
+                <td>{{ p['policyID'] }}</td>
+                <td>{{ p['description'] }}</td>
+                <td>{{ p['duration'] }}</td>
+                <td>
+                  {% set str = p['pool'].split('#') %}
+                  {{ str[1] }}
+                </td>
+                <td>
+                {% for cp in custdata['policies'] %}
+                    {% if cp['policy'].split('#')[1]==p['policyID'] and cp['status']!='ACTIVE' %}
+                    {% elif  cp['policy'].split('#')[1]!=p['policyID'] %}
+                    <a href="{{ url_for('submit_policy_appl', policy=p['policyID']) }}">Apply</a>
+
+                    {% endif %}
+                {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
+{%  endblock  %}

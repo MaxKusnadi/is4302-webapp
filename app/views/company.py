@@ -80,7 +80,7 @@ def reject_policy_application():
     applyID = request.args.get("id")
     company_controller.reject_policy_appl(applyID)
 
-    return redirect(url_for('view_company_application'))
+    return redirect(url_for('view_policy_application'))
 
 
 @app.route('/claim')
@@ -137,3 +137,13 @@ def submit_reimbursement():
             return redirect(url_for('view_claim'))
         return redirect(url_for('view_claim'))
     return render_template('company/submitReimb.html', form=form, claim=claimID, title='Submit Reimbursement')
+
+@app.route('/view-cashout')
+@login_required
+def view_cashout():
+    if current_user.role != "company":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+    cust = company_controller.get_all_cust()
+
+    return render_template('company/viewCashOut.html', title='View Available CashOuts', custpol=cust)
