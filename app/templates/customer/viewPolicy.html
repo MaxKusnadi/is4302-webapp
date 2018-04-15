@@ -7,6 +7,7 @@
         <div class="col-md-8 col-sm-10 center-block text-center">
           <header>
             <h1>View Policies</h1>
+            <p>Welcome, {{ name }}!</p>
           </header>
         </div><!-- /.col -->
         <div class="col-sm-10 center-block">
@@ -31,13 +32,18 @@
                   {{ str[1] }}
                 </td>
                 <td>
+                {% if custdata['policies']|length==0 %}
+                  <a href="{{ url_for('submit_policy_appl', policy=p['policyID']) }}">Apply</a>
+                {% endif %}
+                {% set can_apply = {'value': True} %}
                 {% for cp in custdata['policies'] %}
-                    {% if cp['policy'].split('#')[1]==p['policyID'] and cp['status']!='ACTIVE' %}
-                    {% elif  cp['policy'].split('#')[1]!=p['policyID'] %}
-                    <a href="{{ url_for('submit_policy_appl', policy=p['policyID']) }}">Apply</a>
-
+                    {% if (cp['policy'].split('#')[1]==p['policyID'] and cp['status']=='ACTIVE') %}
+                      {% if can_apply.update({'value': False}) %} {% endif %}
                     {% endif %}
                 {% endfor %}
+                {% if can_apply.value %}
+                   <a href="{{ url_for('submit_policy_appl', policy=p['policyID']) }}">Apply</a>
+                {% endif %}
                 </td>
               </tr>
             {% endfor %}

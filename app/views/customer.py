@@ -57,7 +57,7 @@ def view_policy():
     poldata = customer_controller.get_policies()
     custdata = customer_controller.get_own_data(current_user.username)
 
-    return render_template('customer/viewPolicy.html', title='View My Policies', poldata=poldata, custdata=custdata)
+    return render_template('customer/viewPolicy.html', title='View My Policies', poldata=poldata, custdata=custdata, name=current_user.username)
 
 @app.route('/submit-policy-appl', methods=["GET","POST"])
 @login_required
@@ -68,6 +68,7 @@ def submit_policy_appl():
     policyid = request.args.get("policy")
     customer_controller.submit_policy_appl(current_user.username, policyid)
 
+    flash("Policy Application Submitted")
     return redirect(url_for('view_policy'))
 
 @app.route('/submit-premium-payment', methods=["GET", "POST"])

@@ -82,10 +82,10 @@ class CompanyController:
         except ValueError:
             raise AttributeError("Can't retrieve from the blockchain")
 
-    def submit_cashout(self):
+    def submit_cashout(self, custpolicyid, custid):
         logging.info("Submit CashOut")
         try:
-            return company.submit_cashout()
+            return company.submit_cashout(custpolicyid, custid)
         except ValueError:
             raise AttributeError("Can't create in the blockchain")
 

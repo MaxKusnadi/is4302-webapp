@@ -13,6 +13,7 @@ CLAIM_ENDPOINT="/org.acme.insurance.Claim"
 APPROVECLAIM_ENDPOINT="/org.acme.insurance.ApproveClaim"
 REJECTCLAIM_ENDPOINT="/org.acme.insurance.RejectClaim"
 SUBMITREIMB_ENDPOINT="/org.acme.insurance.SubmitReimbursement"
+SUBMITCASHOUT_ENDPOINT="/org.acme.insurance.SubmitCashOut"
 
 
 class Company:
@@ -109,8 +110,20 @@ class Company:
             raise ValueError("Unable to retrieve all customers from blockchain")
         return r.json()
 
-    def submit_cashout(self):
-        pass
+    def submit_cashout(self, custpolicyid, custid):
+        logging.info("Submit CashOut")
+        data = {
+            "$class": "org.acme.insurance.SubmitCashOut",
+            "custPolicyID": custpolicyid,
+            "customer": "org.acme.insurance.Customer#"+custid
+        }
+        r = requests.post(URL + SUBMITCASHOUT_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to submit cash out")
+            logging.info(r.text)
+            raise ValueError("Unable submit cash out in the blockchain")
+        return r.json()
 
     def get_all_claim(self):
         logging.info("Getting All Claim Requests")

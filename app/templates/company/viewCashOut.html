@@ -1,4 +1,4 @@
-{%  extends 'layout/customer/main.html' %}
+{%  extends 'layout/company/main.html' %}
 {%  block content %}
   <section id="team" class="light-bg">
     <div class="container inner-top inner-bottom-sm">
@@ -7,6 +7,7 @@
         <div class="col-md-8 col-sm-10 center-block text-center">
           <header>
             <h1>View Available CashOuts</h1>
+            <p>Welcome, {{ name }}!</p>
           </header>
         </div><!-- /.col -->
         <div class="col-sm-10 center-block">
@@ -14,6 +15,7 @@
             <thead class="thead-inverse">
             <tr>
               <th>Policy Number</th>
+              <th>Customer ID</th>
               <th>Start Date</th>
               <th>Mature Date</th>
               <th>Policy Status</th>
@@ -23,9 +25,12 @@
             </tr>
             </thead>
             <tbody>
-            {% for p in cust['policies'] %}
+            {% for c in cust %}
+            {% for p in c['policies'] %}
+              {% if p['cashOutStatus']=='VALID' %}
               <tr>
                 <td>{{ p['transactionId'] }}</td>
+                <td>{{ c['idNo'] }}</td>
                 <td>{{ p['policyStartDate'] }}</td>
                 <td>{{ p['policyMaturedDate'] }}</td>
                 <td>{{ p['status'] }}</td>
@@ -34,10 +39,10 @@
                   {% set str = p['policy'].split('#') %}
                   {{ str[1] }}
                 </td>
-                {% if p['cashOutStatus']=='VALID' %}
-                  <td><a href="#">Submit CashOut</a></td>
-                {% endif %}
+                  <td><a href="{{ url_for('submit_cashout', custpol=p['transactionId'], custid=c['idNo']) }}">Submit CashOut</a></td>
               </tr>
+            {% endif %}
+            {% endfor %}
             {% endfor %}
             </tbody>
 

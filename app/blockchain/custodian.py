@@ -1,7 +1,8 @@
 import logging
 import requests
 from ..blockchain import URL
-CUSTODIAN_ENDPOINT="/org.acme.insurance.Custodian"
+REGISTRATION_ENDPOINT = "/org.acme.insurance.CustodianBank"
+CUSTODIAN_ENDPOINT="/org.acme.insurance.CustodianBank"
 REIMBURSEMENT_ENDPOINT = "/org.acme.insurance.Reimbursement"
 CASHOUT_ENDPOINT = "/org.acme.insurance.CashOut"
 APPROVE_REIMBURSEMENT_ENDPOINT = "/org.acme.insurance.ApproveReimbursement"

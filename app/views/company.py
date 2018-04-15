@@ -56,7 +56,7 @@ def view_policy_application():
         flash("Not authorized to do such action")
         return redirect(url_for('index'))
     data = company_controller.get_all_policy_appl()
-    return render_template('company/viewPolicyAppl.html', title='View All Policy Applications', appl=data)
+    return render_template('company/viewPolicyAppl.html', title='View All Policy Applications', appl=data, name=current_user.username)
 
 
 @app.route('/approve-policy')
@@ -68,6 +68,7 @@ def approve_policy_application():
     applyID = request.args.get("id")
     company_controller.register_cust_policy(applyID)
 
+    flash("Policy application approved and registered to customer")
     return redirect(url_for('view_policy_application'))
 
 
@@ -80,6 +81,7 @@ def reject_policy_application():
     applyID = request.args.get("id")
     company_controller.reject_policy_appl(applyID)
 
+    flash("Policy application has been rejected")
     return redirect(url_for('view_policy_application'))
 
 
@@ -91,7 +93,7 @@ def view_claim():
         return redirect(url_for('index'))
     data = company_controller.get_all_claim()
 
-    return render_template('company/viewClaim.html', title='View All Claim Requests', claim=data)
+    return render_template('company/viewClaim.html', title='View All Claim Requests', claim=data, name=current_user.username)
 
 
 @app.route('/approve-claim')
@@ -103,6 +105,7 @@ def approve_claim():
     claimID = request.args.get("id")
     company_controller.approve_claim(claimID)
 
+    flash("Claim has been approved")
     return redirect(url_for('view_claim'))
 
 
@@ -115,6 +118,7 @@ def reject_claim():
     claimID = request.args.get("id")
     company_controller.reject_claim(claimID)
 
+    flash("Claim has been rejected")
     return redirect(url_for('view_claim'))
 
 
@@ -138,7 +142,7 @@ def submit_reimbursement():
         return redirect(url_for('view_claim'))
     return render_template('company/submitReimb.html', form=form, claim=claimID, title='Submit Reimbursement')
 
-@app.route('/view-cashout')
+@app.route('/view-cashout', methods=["GET","POST"])
 @login_required
 def view_cashout():
     if current_user.role != "company":
@@ -146,4 +150,16 @@ def view_cashout():
         return redirect(url_for('index'))
     cust = company_controller.get_all_cust()
 
-    return render_template('company/viewCashOut.html', title='View Available CashOuts', custpol=cust)
+    return render_template('company/viewCashOut.html', title='View Available CashOuts', cust=cust, name=current_user.username)
+
+@app.route('/submit-cashout', methods=["GET","POST"])
+@login_required
+def submit_cashout():
+    if current_user.role != "company":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+    custpolicyid = request.args.get("custpol")
+    custid = request.args.get("custid")
+    company_controller.submit_cashout(custpolicyid, custid)
+    flash("CashOut Submitted")
+    return redirect(url_for('view_cashout'))

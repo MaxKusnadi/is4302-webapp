@@ -5,12 +5,14 @@ from app import db, login_manager, cache
 from ..models.user import User
 from ..blockchain.custodian import custodian
 
+
 @login_manager.user_loader
 def load_user(username):
     return User.query.filter(User.username == username).first()
 
+
 class CustodianController:
-    
+
     def get_pending_reimbursement(self):
         logging.info("Getting pending reimbursement from controller")
         try:
@@ -46,3 +48,4 @@ class CustodianController:
         pass
 
 
+custodian_controller = CustodianController()

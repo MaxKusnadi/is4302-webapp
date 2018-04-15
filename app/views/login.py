@@ -58,7 +58,7 @@ def index():
     elif current_user.role.lower() == 'company':
         return redirect(url_for('company_home'))
     elif current_user.role.lower() == 'custodian':
-        return render_template('home.html', title='Custodian Portal Home', name=current_user.username)
+        return redirect(url_for('custodian_home'))
     elif current_user.role.lower() == 'regulator':
         return redirect(url_for("regulator_home"))
 
