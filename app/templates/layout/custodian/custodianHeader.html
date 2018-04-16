@@ -8,23 +8,27 @@
             <!-- ============================================================= MAIN NAVIGATION ============================================================= -->
             <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a href="{{ url_for('custodianViewPendingReimbursement')}}" class="dropdown-toggle" data-toggle="dropdown">View Pending Reimbursement Requests</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reimbursement</a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('custodianViewPendingReimbursement') }}">View Pending Reimbursements</a></li>
+                  <li><a href="{{ url_for('custodianViewAllReimbursement') }}">View All Reimbursements</a></li>
+                </ul><!-- /.dropdown-menu -->
             </li><!-- /.dropdown -->
 
             <li class="dropdown">
-                <a href="{{ url_for('custodianViewAllReimbursement')}}" class="dropdown-toggle" data-toggle="dropdown">View All Reimbursements</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">CashOut</a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('custodianViewPendingCashout') }}">View Pending CashOut</a></li>
+                  <li><a href="{{ url_for('custodianViewAllCashout') }}">View All CashOut</a></li>
+                </ul><!-- /.dropdown-menu -->
             </li><!-- /.dropdown -->
 
             <li class="dropdown">
-                <a href="{{ url_for('custodianViewPendingCashout')}}" class="dropdown-toggle" data-toggle="dropdown">View Pending Cashout Requests</a>
-            </li><!-- /.dropdown -->
-
-            <li class="dropdown">
-                <a href="{{ url_for('custodianViewAllCashout')}}" class="dropdown-toggle" data-toggle="dropdown">View All Cashouts</a>
-            </li><!-- /.dropdown -->
-
-            <li class="dropdown">
-                <a href="{{ url_for('custodianVerifyPremium')}}" class="dropdown-toggle" data-toggle="dropdown">Verify Premium Payments</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Premium</a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('custodianVerifyPremium') }}">View Pending Premium</a></li>
+                  <li><a href="{{ url_for('custodianViewAllPremium') }}">View All Premium</a></li>
+                </ul><!-- /.dropdown-menu -->
             </li><!-- /.dropdown -->
 
             <li class="dropdown">
