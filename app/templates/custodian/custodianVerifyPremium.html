@@ -1,4 +1,44 @@
 {%  extends 'layout/custodian/custodianMain.html' %}
 {%  block content %}
-Welcome to Verify Premium page, {{name}}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h1>List of premiums payments pending verification</h1>
+            <p>
+              Welcome, {{ name }}!
+              Here are a list of premium payments pending action.
+            </p>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th> ID </th>
+              <th> Amount </th>
+              <th> Date Submitted </th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+
+            {% for p in premiumpayments %}
+              <tr>
+                <td> {{ p.premID }} </td>
+                <td> {{ p.amount }} </td>
+                <td> {{ p.dateSubmitted }} </td>
+                <td> <a href="{{ '/verify-premium/' + p.premID }}">Verify</a> </td>
+                <td> <a href="{{ '/reject-premium/' + p.premID }}">Reject</a></td>
+              </tr>
+            {% endfor %}
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
 {%  endblock  %}
