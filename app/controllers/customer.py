@@ -1,6 +1,3 @@
-import logging
-from flask_login import login_user, logout_user
-
 from app import db, login_manager, cache
 from ..models.user import User
 from ..blockchain.customer import customer

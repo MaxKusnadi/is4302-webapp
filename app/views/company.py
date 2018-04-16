@@ -39,7 +39,27 @@ def register_customer():
     return render_template('company/registerCust.html', form=form, title='Register Customer', name=current_user.username)
 
 
-@app.route('/register/policy', methods=["GET", "POST"])
+@app.route('/terminate/policy', methods=["GET", "POST"])
+@login_required
+def terminate_policy():
+    if current_user.role != "company":
+        flash("Not authorized to do such action")
+        return redirect(url_for('index'))
+    form = TerminateCustomerPolicyForm()
+    if form.validate_on_submit():
+        policy = form.policy_id.data
+        customer = form.cust_id.data
+        try:
+            company_controller.terminate_customer_policy(customer, policy)
+        except AttributeError:
+            flash("Unable to terminate policy {} from {}".format(policy, customer))
+            return redirect(url_for('terminate_policy'))
+        flash("Policy '{}' termination is successful".format(policy))
+        return redirect(url_for('index'))
+    return render_template('company/terminatePolicy.html', form=form, title='Register Policy')
+
+
+@app.route('/terminate/policy', methods=["GET", "POST"])
 @login_required
 def register_policy():
     if current_user.role != "company":
