@@ -23,7 +23,11 @@
               </li><!-- /.dropdown -->
 
               <li class="dropdown">
-                <a href="{{ url_for('view_money_pool') }}" class="dropdown-toggle" data-toggle="dropdown">Money Pool</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Policies Funds</a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('view_money_pool') }}">Money Pool</a></li>
+                  <li><a href="{{ url_for('view_money_pool_reimbursed') }}">Reimbursements</a></li>
+                </ul><!-- /.dropdown-menu -->
               </li><!-- /.dropdown -->
 
               <li class="dropdown">

@@ -102,10 +102,10 @@ class Customer:
             raise ValueError("Unable create premium payment in the blockchain")
         return r.json()
 
-    def view_money_pool(self):
+    def view_money_pool(self, username):
         logging.info("Retrieving all customer policy money pool Data")
         data = {
-            "$class": "org.acme.insurance.Customer"
+            "$class": "org.acme.insurance.Customer#"+username
         }
         r = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
