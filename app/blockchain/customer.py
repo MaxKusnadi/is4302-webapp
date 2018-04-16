@@ -120,15 +120,16 @@ class Customer:
             raise ValueError("Unable to get all customers")
         cust = cr.json()
         result = []
-        for policyid in cust['policies']:
+        for policy in cust['policies']:
             # money pool request
-            mr = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid, json=data)
+            policyID = policy['policy'].split('#')
+            mr = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + str(policyID[1]), json=data)
             logging.info("Status code: {}".format(mr.status_code))
             if mr.status_code != 200:
                 logging.error("Unable to retrieve")
                 logging.info(mr.text)
                 raise ValueError("Unable retrieve from the blockchain")
-            result.push(mr.json())
+            result.append(mr.json())
         return result
 
     def view_money_pool_reimbursed(self, policyid, fromDate, toDate):
