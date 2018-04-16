@@ -167,20 +167,6 @@ class Company:
             raise ValueError("Unable to retrieve all claims from blockchain")
         return r.json()
 
-    def approve_claim(self, claimID):
-        logging.info("Approving Claim Request")
-        data = {
-            "$class": "org.acme.insurance.ApproveClaim",
-            "claim": "resource:org.acme.insurance.Claim#"+claimID
-        }
-        r = requests.post(URL + APPROVECLAIM_ENDPOINT, json=data)
-        logging.info("Status code: {}".format(r.status_code))
-        if r.status_code != 200:
-            logging.error("Unable to create")
-            logging.info(r.text)
-            raise ValueError("Unable to approve claim in blockchain")
-        return r.json()
-
     def reject_claim(self, claimID):
         logging.info("Rejecting Claim Request")
         data = {

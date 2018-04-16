@@ -73,13 +73,6 @@ class CompanyController:
         except ValueError:
             raise AttributeError("Can't retrieve from the blockchain")
 
-    def approve_claim(self, claimID):
-        logging.info("Approve Claim")
-        try:
-            return company.approve_claim(claimID)
-        except ValueError:
-            raise AttributeError("Can't approve claim in blockchain")
-
     def reject_claim(self, claimID):
         logging.info("Reject Claim")
         try:

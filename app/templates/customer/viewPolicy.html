@@ -32,9 +32,6 @@
                   {{ str[1] }}
                 </td>
                 <td>
-                {% if custdata['policies']|length==0 %}
-                  <a href="{{ url_for('submit_policy_appl', policy=p['policyID']) }}">Apply</a>
-                {% endif %}
                 {% set can_apply = {'value': True} %}
                 {% for cp in custdata['policies'] %}
                     {% if (cp['policy'].split('#')[1]==p['policyID'] and cp['status']=='ACTIVE') %}

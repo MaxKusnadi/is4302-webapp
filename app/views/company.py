@@ -108,20 +108,6 @@ def view_claim():
 
     return render_template('company/viewClaim.html', title='View All Claim Requests', claim=data, name=current_user.username)
 
-
-@app.route('/approve-claim')
-@login_required
-def approve_claim():
-    if current_user.role != "company":
-        flash("Not authorized to do such action")
-        return redirect(url_for('index'))
-    claimID = request.args.get("id")
-    company_controller.approve_claim(claimID)
-
-    flash("Claim has been approved")
-    return redirect(url_for('view_claim'))
-
-
 @app.route('/reject-claim')
 @login_required
 def reject_claim():
