@@ -83,6 +83,14 @@ class CustodianController:
             raise ValueError("Unable to get pending premium data")
         return result
 
+    def get_all_premium(self):
+        logging.info("Getting all premium from controller")
+        try:
+            result = custodian.get_all_premium()
+        except ValueError:
+            raise ValueError("Unable to get pending premium data")
+        return result
+
     def verify_premium(self, premID):
         logging.info("Verifying premium from controller")
         try:
