@@ -10,7 +10,7 @@ POLICYAPPL_ENDPOINT = "/org.acme.insurance.PolicyApplication"
 SUBMITPOLICYAPPL_ENDPOINT = "/org.acme.insurance.SubmitPolicyApplication"
 FILE_CLAIM_ENDPOINT = "/org.acme.insurance.FileClaim"
 SUBMIT_PREMIUM_PAYMENT_ENDPOINT = "/org.acme.insurance.SubmitPremiumPayment"
-VIEW_MONEY_POOL_ENDPOINT = "/org.acme.insurance.ViewMoneyPoolAmount"
+VIEW_MONEY_POOL_ENDPOINT = "/org.acme.insurance.MoneyPool"
 VIEW_MONEY_POOL_REIMBURSED_ENDPOINT = "/org.acme.insurance.ViewMoneyPoolAmountReimbursed"
 
 
@@ -107,13 +107,29 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.Customer#"+username
         }
-        r = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT, json=data)
-        logging.info("Status code: {}".format(r.status_code))
-        if r.status_code != 200:
+
+        logging.info("Getting customer info")
+        #customer info request
+        cr = requests.get(URL + CUSTOMER_ENDPOINT+ "/" + username, json=data)
+
+        logging.info("Status code: {}".format(cr.status_code))
+
+        if cr.status_code != 200:
             logging.error("Unable to retrieve")
-            logging.info(r.text)
-            raise ValueError("Unable retrieve from the blockchain")
-        return r.json()
+            logging.info(cr.text)
+            raise ValueError("Unable to get all customers")
+        cust = cr.json()
+        result = []
+        for policyid in cust['policies']:
+            # money pool request
+            mr = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid, json=data)
+            logging.info("Status code: {}".format(mr.status_code))
+            if mr.status_code != 200:
+                logging.error("Unable to retrieve")
+                logging.info(mr.text)
+                raise ValueError("Unable retrieve from the blockchain")
+            result.push(mr.json())
+        return result
 
     def view_money_pool_reimbursed(self, policyid, fromDate, toDate):
         logging.info("Retrieving money pool reimbursed Data")
