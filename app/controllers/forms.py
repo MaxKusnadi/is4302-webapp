@@ -36,17 +36,32 @@ class ReimbursementForm(FlaskForm):
                                               ('INC2', 'INC2')])
     submit = SubmitField('Submit Reimbursement')
 
+
 class FileClaimForm(FlaskForm):
     #assume claim description to be legitimate
     claimDesc = StringField('Claim Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+
 class SubmitPremiumPaymentForm(FlaskForm):
     policyid = StringField('Policy Id', validators=[DataRequired()])
     submit = SubmitField('Confirm Payment')
+
 
 class ViewMoneyPoolReimbursedForm(FlaskForm):
     policyid = StringField('Policy Id', validators=[DataRequired()])
     fromDate = StringField('From Date(e.g. 09-10-2018)', validators=[DataRequired()])
     toDate = StringField('To Date(e.g. 09-11-2018)', validators=[DataRequired()])
     submit = SubmitField('View')
+
+
+class RegisterPolicyForm(FlaskForm):
+    policy_id = StringField('Policy ID', validators=[DataRequired()])
+    duration = IntegerField('Duration in month', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+
+class TerminateCustomerPolicyForm(FlaskForm):
+    policy_id = StringField('Policy ID', validators=[DataRequired()])
+    cust_id = StringField('Customer ID', validators=[DataRequired()])
+    submit = SubmitField("Terminate")

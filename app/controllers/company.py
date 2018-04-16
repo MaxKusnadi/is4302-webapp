@@ -8,6 +8,25 @@ from ..models.user import User
 
 class CompanyController:
 
+    def register_policy(self, policy_id, duration):
+        logging.info("Registering policy from controller")
+        try:
+            company.register_policy(policy_id, duration)
+        except ValueError:
+            raise ValueError("Unable to register policy in blockchain")
+
+        try:
+            return company.assign_pool_to_policy(policy_id)
+        except ValueError:
+            raise AttributeError("Unable to assign money pool to policy")
+
+    def terminate_customer_policy(self, cust_id, policy_id):
+        logging.info("Terminating customer policy from controller")
+        try:
+            return company.terminate_customer_policy(policy_id, cust_id)
+        except ValueError:
+            raise AttributeError("Can't terminate customer policy from the blockchain")
+
     def register_customer(self, username, password, salary):
         logging.info("Registering customer {} by company".format(username))
         # Check username exists

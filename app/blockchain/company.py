@@ -4,16 +4,19 @@ import requests
 from ..blockchain import URL
 
 REGISTRATION_ENDPOINT = "/org.acme.insurance.InsuranceCompany"
-CUST_ENDPOINT ="/org.acme.insurance.Customer"
-POLICY_ENDPOINT ="/org.acme.insurance.Policy"
-POLICYAPPL_ENDPOINT="/org.acme.insurance.PolicyApplication"
-CUSTPOL_ENDPOINT="/org.acme.insurance.CustomerPolicy"
-REJECTPOLAPPL_ENDPOINT="/org.acme.insurance.RejectPolicyApplication"
-CLAIM_ENDPOINT="/org.acme.insurance.Claim"
-APPROVECLAIM_ENDPOINT="/org.acme.insurance.ApproveClaim"
-REJECTCLAIM_ENDPOINT="/org.acme.insurance.RejectClaim"
-SUBMITREIMB_ENDPOINT="/org.acme.insurance.SubmitReimbursement"
-SUBMITCASHOUT_ENDPOINT="/org.acme.insurance.SubmitCashOut"
+CUST_ENDPOINT = "/org.acme.insurance.Customer"
+POLICY_ENDPOINT = "/org.acme.insurance.Policy"
+POLICYAPPL_ENDPOINT = "/org.acme.insurance.PolicyApplication"
+CUSTPOL_ENDPOINT = "/org.acme.insurance.CustomerPolicy"
+REJECTPOLAPPL_ENDPOINT = "/org.acme.insurance.RejectPolicyApplication"
+CLAIM_ENDPOINT = "/org.acme.insurance.Claim"
+APPROVECLAIM_ENDPOINT = "/org.acme.insurance.ApproveClaim"
+REJECTCLAIM_ENDPOINT = "/org.acme.insurance.RejectClaim"
+SUBMITREIMB_ENDPOINT = "/org.acme.insurance.SubmitReimbursement"
+SUBMITCASHOUT_ENDPOINT = "/org.acme.insurance.SubmitCashOut"
+REGISTER_POLICY_ENDPOINT = "/org.acme.insurance.RegisterPolicy"
+ASSIGN_MONEY_POOL_TO_POLICY_ENDPOINT = "/org.acme.insurance.AssignMoneyPoolToPolicy"
+TERMINATE_POLICY_ENDPOINT = "/org.acme.insurance.TerminateCustomerPolicy"
 
 
 class Company:
@@ -33,11 +36,37 @@ class Company:
             raise ValueError("Unable to create company in blockchain")
         return r.json()
 
-    def register_policy(self):
-        pass
+    def register_policy(self, policyId, duration):
+        logging.info("Registering a policy {}".format(policyId))
+        data = {
+            "$class": "org.acme.insurance.RegisterPolicy",
+            "policyID": policyId,
+            "description": "New policy",
+            "duration": duration,
+            "moneyPoolID": policyId
+        }
+        r = requests.post(URL + REGISTER_POLICY_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to register policy")
+            logging.info(r.text)
+            raise ValueError("Unable to register in blockchain")
+        return r.json()
 
-    def assign_pool_to_policy(self):
-        pass
+    def assign_pool_to_policy(self, policyId):
+        logging.info("Assigning pool to policy")
+        data = {
+            "$class": "org.acme.insurance.AssignMoneyPoolToPolicy",
+            "policy": policyId,
+            "pool": policyId
+        }
+        r = requests.post(URL + ASSIGN_MONEY_POOL_TO_POLICY_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to assign pool to policy")
+            logging.info(r.text)
+            raise ValueError("Unable to assign pool to policy in blockchain")
+        return r.json()
 
     def get_all_policy_appl(self):
         logging.info("Getting All Policy Applications")
@@ -166,8 +195,20 @@ class Company:
             raise ValueError("Unable to reject claim in blockchain")
         return r.json()
 
-    def terminate_customer_policy(self):
-        pass
+    def terminate_customer_policy(self, policy_id, customer_id):
+        logging.info("Terminating policy {} from  customer {}".format(policy_id, customer_id))
+        data = {
+            "$class": "org.acme.insurance.TerminateCustomerPolicy",
+            "custPolicyID": policy_id,
+            "customer": customer_id
+        }
+        r = requests.post(URL + TERMINATE_POLICY_ENDPOINT, json=data)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to terminate customer policy")
+            logging.info(r.text)
+            raise ValueError("Unable terminate customer policy in the blockchain")
+        return r.json()
 
 
 company = Company()

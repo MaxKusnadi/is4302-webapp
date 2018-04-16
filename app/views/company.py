@@ -2,7 +2,7 @@ from flask import request, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 
 from app import app
-from ..controllers.forms import ReimbursementForm, CustomerRegistrationForm
+from ..controllers.forms import ReimbursementForm, CustomerRegistrationForm, TerminateCustomerPolicyForm, RegisterPolicyForm
 from ..controllers.company import company_controller
 
 
@@ -39,14 +39,27 @@ def register_customer():
     return render_template('company/registerCust.html', form=form, title='Register Customer', name=current_user.username)
 
 
-# TODO
 @app.route('/register/policy', methods=["GET", "POST"])
 @login_required
 def register_policy():
     if current_user.role != "company":
         flash("Not authorized to do such action")
         return redirect(url_for('index'))
-    return render_template('company/registerPolicy.html', title='Register Policy', name=current_user.username)
+    form = RegisterPolicyForm()
+    if form.validate_on_submit():
+        policy = form.policy_id.data
+        duration = form.duration.data
+        try:
+            company_controller.register_policy(policy, duration)
+        except ValueError:
+            flash("Unable to register policy")
+            return redirect(url_for('register_policy'))
+        except AttributeError:
+            flash("Can't assign money pool to policy in the blockchain")
+            return redirect(url_for('register_policy'))
+        flash("Policy '{}' registration is successful".format(policy))
+        return redirect(url_for('index'))
+    return render_template('company/registerPolicy.html', form=form, title='Register Policy')
 
 
 @app.route('/policy')

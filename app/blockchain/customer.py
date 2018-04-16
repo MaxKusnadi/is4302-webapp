@@ -4,6 +4,7 @@ import requests
 from ..blockchain import URL
 
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
+REGISTER_CUSTOMER = "/org.acme.insurance.RegisterCustomer"
 POLICY_ENDPOINT = "/org.acme.insurance.Policy"
 POLICYAPPL_ENDPOINT = "/org.acme.insurance.PolicyApplication"
 SUBMITPOLICYAPPL_ENDPOINT = "/org.acme.insurance.SubmitPolicyApplication"
@@ -135,10 +136,9 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.Customer",
             "idNo": username,
-            "salary": salary,
-            "verifiedByIRAS": "PENDING"
+            "salary": salary
         }
-        r = requests.post(URL+CUSTOMER_ENDPOINT, json=data)
+        r = requests.post(URL + REGISTER_CUSTOMER, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create customer")

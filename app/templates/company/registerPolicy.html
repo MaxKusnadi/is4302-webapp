@@ -1,4 +1,4 @@
-{%  extends 'layout/main.html' %}
+{%  extends 'layout/company/main.html' %}
 {%  block content %}
   <main>
     <section id="contact-form">
@@ -7,8 +7,7 @@
         <div class="row">
           <div class="col-md-8 col-sm-9 center-block text-center">
             <header>
-              <h1>Welcome!</h1>
-              <p>Please login to continue</p>
+              <h1>Policy Registration</h1>
             </header>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -19,26 +18,26 @@
 
               <div class="col-sm-12 outer-top-md inner-right-sm text-center">
 
-                <h2>Login</h2>
+                <h2>Signup</h2>
 
                 <form id="contactform" class="forms" action="" method="post">
                   {{ form.hidden_tag() }}
 
                   <div class="row">
                     <div class="col-sm-4 center-block text-center">
-                      {{ form.username(class_="form-control", placeholder="Username") }}
-                      {% for error in form.username.errors %}
-                        <span>{{ error }}</span>
-                      {% endfor %}
+                      {{ form.policy_id(class_="form-control", placeholder="Policy ID") }}
+{#                      {% for error in form.policy_id.errors %}#}
+{#                        <span>{{ error }}</span>#}
+{#                      {% endfor %}#}
                     </div><!-- /.col -->
                   </div><!-- /.row -->
 
                   <div class="row">
                     <div class="col-sm-4 center-block text-center">
-                      {{ form.password(class_="form-control", placeholder="Password") }}
-                      {% for error in form.password.errors %}
-                        <span>{{ error }}</span>
-                      {% endfor %}
+                      {{ form.duration(class_="form-control", placeholder="Duration in months") }}
+{#                      {% for error in form.duration.errors %}#}
+{#                        <span>{{ error }}</span>#}
+{#                      {% endfor %}#}
                     </div><!-- /.col -->
                   </div><!-- /.row -->
 
@@ -47,9 +46,6 @@
                       {{ form.submit(class_="btn btn-default btn-submit") }}
                     </div><!-- /.col -->
                   </div><!-- /.row -->
-
-
-{#                  <button class="btn btn-default btn-submit"><a href="/admin">Register instead</a></button>#}
 
                 </form>
 
