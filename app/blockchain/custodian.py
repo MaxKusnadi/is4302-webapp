@@ -1,6 +1,7 @@
 import logging
 import requests
 from ..blockchain import URL
+from ..blockchain import CUSTODIANURL
 
 
 REGISTRATION_ENDPOINT = "/org.acme.insurance.CustodianBank"
@@ -35,7 +36,7 @@ class Custodian:
 
     def get_pending_reimbursement(self):
         logging.info("Getting pending reimbursement")
-        r = requests.get(URL + REIMBURSEMENT_ENDPOINT)
+        r = requests.get(CUSTODIANURL + REIMBURSEMENT_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get pending customer reimbursement")
@@ -49,7 +50,7 @@ class Custodian:
 
     def get_reimbursement(self):
         logging.info("Getting all reimbursement")
-        r = requests.get(URL + REIMBURSEMENT_ENDPOINT)
+        r = requests.get(CUSTODIANURL + REIMBURSEMENT_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get customer reimbursements")
@@ -64,7 +65,7 @@ class Custodian:
             "$class": "org.acme.insurance.ApproveReimbursement",
             "reimbursement": "resource:org.acme.insurance.Reimbursement#" + str(reimbID)
         }
-        r = requests.post(URL + APPROVE_REIMBURSEMENT_ENDPOINT, json=data)
+        r = requests.post(CUSTODIANURL + APPROVE_REIMBURSEMENT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to approve reimbursement")
@@ -78,7 +79,7 @@ class Custodian:
             "$class": "org.acme.insurance.RejectReimbursement",
             "reimbursement": "resource:org.acme.insurance.Reimbursement#" + str(reimbID)
         }
-        r = requests.post(URL + REJECT_REIMBURSEMENT_ENDPOINT, json=data)
+        r = requests.post(CUSTODIANURL + REJECT_REIMBURSEMENT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to reject reimbursement")
@@ -88,7 +89,7 @@ class Custodian:
 
     def get_cashout(self):
         logging.info("Getting all cashout")
-        r = requests.get(URL + CASHOUT_ENDPOINT)
+        r = requests.get(CUSTODIANURL + CASHOUT_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get cashout")
@@ -99,7 +100,7 @@ class Custodian:
 
     def get_pending_cashout(self):
         logging.info("Getting pending cashout")
-        r = requests.get(URL + CASHOUT_ENDPOINT)
+        r = requests.get(CUSTODIANURL + CASHOUT_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get pending cashout")
@@ -116,7 +117,7 @@ class Custodian:
             "$class": "org.acme.insurance.ApproveCashOut",
             "cashout": "resource:org.acme.insurance.CashOut#" + str(cashoutID)
         }
-        r = requests.post(URL + APPROVE_CASHOUT_ENDPOINT, json=data)
+        r = requests.post(CUSTODIANURL + APPROVE_CASHOUT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to approve cashout")
@@ -130,7 +131,7 @@ class Custodian:
             "$class": "org.acme.insurance.RejectCashOut",
             "cashout": "resource:org.acme.insurance.CashOut#" + str(cashoutID)
         }
-        r = requests.post(URL + REJECT_CASHOUT_ENDPOINT, json=data)
+        r = requests.post(CUSTODIANURL + REJECT_CASHOUT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to reject cashout")
@@ -140,7 +141,7 @@ class Custodian:
 
     def get_pending_premium(self):
         logging.info("Getting pending premium")
-        r = requests.get(URL + PREMIUM_ENDPOINT)
+        r = requests.get(CUSTODIANURL + PREMIUM_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get pending premium")
@@ -153,7 +154,7 @@ class Custodian:
 
     def get_all_premium(self):
         logging.info("Getting pending premium")
-        r = requests.get(URL + PREMIUM_ENDPOINT)
+        r = requests.get(CUSTODIANURL + PREMIUM_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get all premium")
@@ -169,7 +170,7 @@ class Custodian:
             "premium": "resource:org.acme.insurance.Premium#" + str(premID),
             "paymentState": "APPROVED"
         }
-        r = requests.post(URL + VERIFY_PREMIUM_ENDPOINT, json=data)
+        r = requests.post(CUSTODIANURL + VERIFY_PREMIUM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to verify premium payment")
@@ -184,7 +185,7 @@ class Custodian:
             "premium": "resource:org.acme.insurance.Premium#" + str(premID),
             "paymentState": "REJECTED"
         }
-        r = requests.post(URL + VERIFY_PREMIUM_ENDPOINT, json=data)
+        r = requests.post(CUSTODIANURL + VERIFY_PREMIUM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to reject premium payment")

@@ -2,6 +2,8 @@ import logging
 import requests
 
 from ..blockchain import URL
+from ..blockchain import CUSTURL
+from ..blockchain import COMPURL
 
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
 REGISTER_CUSTOMER = "/org.acme.insurance.RegisterCustomer"
@@ -21,7 +23,7 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.Customer"
         }
-        r = requests.get(URL + CUSTOMER_ENDPOINT + "/" + username, json=data)
+        r = requests.get(CUSTURL + CUSTOMER_ENDPOINT + "/" + username, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve")
@@ -34,7 +36,7 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.Policy"
         }
-        r = requests.get(URL + POLICY_ENDPOINT, json=data)
+        r = requests.get(CUSTURL + POLICY_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve")
@@ -49,7 +51,7 @@ class Customer:
             "newCust": "resource:org.acme.insurance.Customer#"+username,
             "newPolicy": "resource:org.acme.insurance.Policy#"+policyid
         }
-        r = requests.post(URL + SUBMITPOLICYAPPL_ENDPOINT, json=data)
+        r = requests.post(CUSTURL + SUBMITPOLICYAPPL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create")
@@ -62,7 +64,7 @@ class Customer:
         data = {
             "$class": "org.acme.insurance.PolicyApplication"
         }
-        r = requests.get(URL + POLICYAPPL_ENDPOINT + "/" + applyid, json=data)
+        r = requests.get(CUSTURL + POLICYAPPL_ENDPOINT + "/" + applyid, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve")
@@ -79,7 +81,7 @@ class Customer:
           "customer": "resource:org.acme.insurance.Customer#"+username
         }
         #logging.info(username+" "+claimdesc+" "+policyid)
-        r = requests.post(URL + FILE_CLAIM_ENDPOINT, json=data)
+        r = requests.post(CUSTURL + FILE_CLAIM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create claim")
@@ -94,7 +96,7 @@ class Customer:
           "policyId": policyid,
           "customer": "resource:org.acme.insurance.Customer#"+username
         }
-        r = requests.post(URL + SUBMIT_PREMIUM_PAYMENT_ENDPOINT, json=data)
+        r = requests.post(CUSTURL + SUBMIT_PREMIUM_PAYMENT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create payment")
@@ -110,7 +112,7 @@ class Customer:
 
         logging.info("Getting customer info")
         #customer info request
-        cr = requests.get(URL + CUSTOMER_ENDPOINT+ "/" + username, json=data)
+        cr = requests.get(CUSTURL + CUSTOMER_ENDPOINT+ "/" + username, json=data)
 
         logging.info("Status code: {}".format(cr.status_code))
 
@@ -123,7 +125,7 @@ class Customer:
         for policy in cust['policies']:
             # money pool request
             policyID = policy['policy'].split('#')
-            mr = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + str(policyID[1]), json=data)
+            mr = requests.get(CUSTURL + VIEW_MONEY_POOL_ENDPOINT+ "/" + str(policyID[1]), json=data)
             logging.info("Status code: {}".format(mr.status_code))
             if mr.status_code != 200:
                 logging.error("Unable to retrieve")
@@ -135,7 +137,7 @@ class Customer:
     def view_money_pool_reimbursed(self, policyid):
         logging.info("Retrieving money pool reimbursed Data")
 	
-        r = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid)
+        r = requests.get(CUSTURL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve")
@@ -146,11 +148,11 @@ class Customer:
     def register_customer(self, username, salary=0):
         logging.info("Registering {} into the blockchain".format(username))
         data = {
-            "$class": "org.acme.insurance.Customer",
+            "$class": "org.acme.insurance.RegisterCustomer",
             "idNo": username,
             "salary": salary
         }
-        r = requests.post(URL + REGISTER_CUSTOMER, json=data)
+        r = requests.post(COMPURL + REGISTER_CUSTOMER, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create customer")

@@ -2,6 +2,7 @@ import logging
 import requests
 
 from ..blockchain import URL
+from ..blockchain import COMPURL
 
 REGISTRATION_ENDPOINT = "/org.acme.insurance.InsuranceCompany"
 CUST_ENDPOINT = "/org.acme.insurance.Customer"
@@ -45,7 +46,7 @@ class Company:
             "duration": duration,
             "moneyPoolID": policyId
         }
-        r = requests.post(URL + REGISTER_POLICY_ENDPOINT, json=data)
+        r = requests.post(COMPURL + REGISTER_POLICY_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to register policy")
@@ -60,7 +61,7 @@ class Company:
             "policy": policyId,
             "pool": policyId
         }
-        r = requests.post(URL + ASSIGN_MONEY_POOL_TO_POLICY_ENDPOINT, json=data)
+        r = requests.post(COMPURL + ASSIGN_MONEY_POOL_TO_POLICY_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to assign pool to policy")
@@ -73,7 +74,7 @@ class Company:
         data = {
             "$class": "org.acme.insurance.PolicyApplication"
         }
-        r = requests.get(URL + POLICYAPPL_ENDPOINT, json=data)
+        r = requests.get(COMPURL + POLICYAPPL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve all policy applications")
@@ -89,7 +90,7 @@ class Company:
             "cashOutStatus": "INVALID",
             "apply": "resource:org.acme.insurance.PolicyApplication#"+applyID
         }
-        r = requests.post(URL + CUSTPOL_ENDPOINT, json=data)
+        r = requests.post(COMPURL + CUSTPOL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create customer policy")
@@ -103,7 +104,7 @@ class Company:
             "$class": "org.acme.insurance.RejectPolicyApplication",
             "apply": "resource:org.acme.insurance.PolicyApplication#"+applyID
         }
-        r = requests.post(URL + REJECTPOLAPPL_ENDPOINT, json=data)
+        r = requests.post(COMPURL + REJECTPOLAPPL_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to reject policy application")
@@ -118,7 +119,7 @@ class Company:
             "newCode": reimbType,
             "claim": "org.acme.insurance.Claim#"+claimID
         }
-        r = requests.post(URL + SUBMITREIMB_ENDPOINT, json=data)
+        r = requests.post(COMPURL + SUBMITREIMB_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to submit reimbursement")
@@ -131,7 +132,7 @@ class Company:
         data = {
             "$class": "org.acme.insurance.Customer"
         }
-        r = requests.get(URL + CUST_ENDPOINT, json=data)
+        r = requests.get(COMPURL + CUST_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve all customers")
@@ -146,7 +147,7 @@ class Company:
             "custPolicyID": custpolicyid,
             "customer": "org.acme.insurance.Customer#"+custid
         }
-        r = requests.post(URL + SUBMITCASHOUT_ENDPOINT, json=data)
+        r = requests.post(COMPURL + SUBMITCASHOUT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to submit cash out")
@@ -159,7 +160,7 @@ class Company:
         data = {
             "$class": "org.acme.insurance.Claim"
         }
-        r = requests.get(URL + CLAIM_ENDPOINT, json=data)
+        r = requests.get(COMPURL + CLAIM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create")
@@ -173,7 +174,7 @@ class Company:
             "$class": "org.acme.insurance.RejectClaim",
             "claim": "resource:org.acme.insurance.Claim#"+claimID
         }
-        r = requests.post(URL + REJECTCLAIM_ENDPOINT, json=data)
+        r = requests.post(COMPURL + REJECTCLAIM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to create")
@@ -188,7 +189,7 @@ class Company:
             "custPolicyID": policy_id,
             "customer": customer_id
         }
-        r = requests.post(URL + TERMINATE_POLICY_ENDPOINT, json=data)
+        r = requests.post(COMPURL + TERMINATE_POLICY_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to terminate customer policy")

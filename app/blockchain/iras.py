@@ -2,6 +2,7 @@ import logging
 import requests
 
 from ..blockchain import URL
+from ..blockchain import REGURL
 
 REGISTRATION_ENDPOINT = "/org.acme.insurance.Regulator"
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
@@ -29,7 +30,7 @@ class IRAS:
 
     def get_pending_customer_registration(self):
         logging.info("Getting pending customer registration")
-        r = requests.get(URL + CUSTOMER_ENDPOINT)
+        r = requests.get(REGURL + CUSTOMER_ENDPOINT)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to get pending customer registration")
@@ -46,7 +47,7 @@ class IRAS:
             "$class": "org.acme.insurance.ApproveRegistration",
             "customer": username
         }
-        r = requests.post(URL + APPROVE_REG_ENDPOINT, json=data)
+        r = requests.post(REGURL + APPROVE_REG_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to approve registration")
@@ -60,7 +61,7 @@ class IRAS:
             "$class": "org.acme.insurance.RejectRegistration",
             "customer": username
         }
-        r = requests.post(URL + REJECT_REG_ENDPOINT, json=data)
+        r = requests.post(REGURL + REJECT_REG_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to reject registration")
