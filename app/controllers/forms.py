@@ -50,8 +50,6 @@ class SubmitPremiumPaymentForm(FlaskForm):
 
 class ViewMoneyPoolReimbursedForm(FlaskForm):
     policyid = StringField('Policy Id', validators=[DataRequired()])
-    fromDate = StringField('From Date(e.g. 09-10-2018)', validators=[DataRequired()])
-    toDate = StringField('To Date(e.g. 09-11-2018)', validators=[DataRequired()])
     submit = SubmitField('View')
 
 

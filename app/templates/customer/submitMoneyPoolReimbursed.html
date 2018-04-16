@@ -20,28 +20,6 @@
                     </div><!-- /.col -->
                   </div><!-- /.row -->
 
-                  <h4>Reimbursement From:</h4>
-
-                  <div class="row">
-                    <div class="col-sm-4 center-block text-center">
-                      {{ form.fromDate(class_="form-control", placeholder="e.g. 09-10-2018") }}
-                      {% for error in form.fromDate.errors %}
-                        <span>{{ error }}</span>
-                      {% endfor %}
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
-
-                  <h4>To:</h4>
-
-                  <div class="row">
-                    <div class="col-sm-4 center-block text-center">
-                      {{ form.toDate(class_="form-control", placeholder="e.g. 09-11-2018") }}
-                      {% for error in form.toDate.errors %}
-                        <span>{{ error }}</span>
-                      {% endfor %}
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
-
                   <div class="row">
                     <div class="col-sm-4 center-block text-center">
                       {{ form.submit(class_="btn btn-default btn-submit") }}

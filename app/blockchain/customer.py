@@ -132,15 +132,10 @@ class Customer:
             result.append(mr.json())
         return result
 
-    def view_money_pool_reimbursed(self, policyid, fromDate, toDate):
+    def view_money_pool_reimbursed(self, policyid):
         logging.info("Retrieving money pool reimbursed Data")
-        data = {
-            "$class": "org.acme.insurance.Customer",
-            "policyId": policyid,
-            "fromDate": fromDate,
-            "toDate": toDate,
-        }
-        r = requests.get(URL + VIEW_MONEY_POOL_REIMBURSED_ENDPOINT, json=data)
+
+        r = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid), json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve")

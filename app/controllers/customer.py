@@ -41,9 +41,9 @@ class CustomerController:
         except ValueError:
             raise AttributeError("Can't retrieve money pool from blockchain")
 
-    def view_money_pool_reimbursed(self, policyid, fromDate, toDate):
+    def view_money_pool_reimbursed(self, policyid):
         try:
-            return customer.view_money_pool_reimbursed(policyid, fromDate, toDate)
+            return customer.view_money_pool_reimbursed(policyid)
         except ValueError:
             raise AttributeError("Can't retrieve money pool reimbursed from blockchain")
 

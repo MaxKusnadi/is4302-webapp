@@ -47,10 +47,8 @@ def view_money_pool_reimbursed():
     result = []
     if form.validate_on_submit():
         policyid = form.policyid.data
-        fromDate = form.fromDate.data
-        toDate = form.toDate.data
         try:
-            result = customer_controller.view_money_pool_reimbursed(policyid, fromDate, toDate)
+            result = customer_controller.view_money_pool_reimbursed(policyid)
         except ValueError:
             flash("Couldnt view money pool reimbused")
             return redirect(url_for('login'))
