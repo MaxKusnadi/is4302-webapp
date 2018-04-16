@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-md-8 col-sm-10 center-block text-center">
           <header>
-            <h2>Reimbursement from {{moneyPool.poolID}} with total pool {{moneyPool.amount}}</h2>
+            <h2>Reimbursement from {{moneyPool.poolID}} with total pool $ {{moneyPool.amount}}</h2>
             <p>
               Welcome, {{ name }}!
             </p>
@@ -21,19 +21,17 @@
               <th>Reimburse Amount</th>
               <th>Type</th>
               <th>Status</th>
-              <th>Reimbursed By</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
             {% for r in moneyPool['reimbursements'] %}
               <tr>
-                <td>{{ r['transactionId'] }}</td>
+                <td>{{ r['reimbID'] }}</td>
                 <td>{{ r['dateReimbursed'] }}</td>
                 <td>{{ r['amount'] }}</td>
                 <td>{{ r['typeCode'] }}</td>
                 <td>{{ r['status'] }}</td>
-                <td>{{ r['claim.customer.idNo'] }}</td>
               </tr>
             {% endfor %}
             </tbody>
