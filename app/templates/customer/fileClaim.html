@@ -6,17 +6,14 @@
 
               <div class="col-sm-12 outer-top-md inner-right-sm text-center">
 
-                <h2>Attach Relevant Claims Documents:</h2>
+                <h2>File Claim for Policy {{policyid}}</h2>
 
                 <form id="contactform" class="forms" action="" method="post">
                   {{ form.hidden_tag() }}
 
                   <div class="row">
                     <div class="col-sm-4 center-block text-center">
-                      {{ form.claimDesc(class_="form-control", placeholder="Claim Documents") }}
-                      {% for error in form.claimDesc.errors %}
-                        <span>{{ error }}</span>
-                      {% endfor %}
+                      {{ form.claimDesc(class_="form-control", placeholder="Claim Description") }}
                     </div><!-- /.col -->
                   </div><!-- /.row -->
 

@@ -75,7 +75,7 @@ def file_claim():
             return redirect(url_for('login'))
         flash("Claim Filed")
         return redirect(url_for('index'))
-    return render_template('customer/fileClaim.html', form=form, title='File Claim', name=current_user.username)
+    return render_template('customer/fileClaim.html', form=form, title='File Claim', policyid=policyid, name=current_user.username)
 
 @app.route('/view-policy', methods=["GET","POST"])
 @login_required
