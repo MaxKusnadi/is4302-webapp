@@ -134,8 +134,8 @@ class Customer:
 
     def view_money_pool_reimbursed(self, policyid):
         logging.info("Retrieving money pool reimbursed Data")
-
-        r = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid), json=data)
+	
+        r = requests.get(URL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
             logging.error("Unable to retrieve")
