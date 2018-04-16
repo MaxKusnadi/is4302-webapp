@@ -151,6 +151,17 @@ class Custodian:
         result = list(filter(lambda x: x['status'] == "PENDING", result))
         return result
 
+    def get_all_premium(self):
+        logging.info("Getting pending premium")
+        r = requests.get(URL + PREMIUM_ENDPOINT)
+        logging.info("Status code: {}".format(r.status_code))
+        if r.status_code != 200:
+            logging.error("Unable to get all premium")
+            logging.info(r.text)
+            raise ValueError("Unable to get all premium")
+        result = r.json()
+        return result
+
     def verify_premium(self, premID):
         logging.info("Approving registration of {} into the blockchain".format(premID))
         data = {
