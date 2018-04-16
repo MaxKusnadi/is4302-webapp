@@ -1,4 +1,4 @@
-# IS4302
+# IS4302 Project: Income Insurance Use Case by Tut 4 Group 5
 ## Architecture
 This follows *MVC* model
 
@@ -17,4 +17,5 @@ This follows *MVC* model
 - Install all the dependencies. `pip install -r requirements.txt`
 - Setup a postgresql database. Create a super user. Create a table called **'blockchain'**. Update the database address in `config.py`. If the file doesn't exist, copy `config.py.sample` and rename it to `config.py`
 - Setup the database scheme. `python manage.py db upgrade`
+- Change the URL of the blockchain REST server in `app.blockchain.__init__.py`
 - Run the app. `python run.py`
