@@ -19,9 +19,8 @@
             <tr>
               <th> Reimbursement ID </th>
               <th> Amount </th>
-              <th> Claim </th>
+              <th> Claim ID</th>
               <th> Status </th>
-              <th> Date Reimbursed </th>
             </tr>
             </thead>
 
@@ -29,10 +28,10 @@
               <tr>
                 <td> {{ r.reimbID }} </td>
                 <td> {{ r.amount }} </td>
-                <td> {{ r.claim}} </td>
+		{% set claim = r.claim.split('#') %}
+                <td> {{ claim[1]}} </td>
                 <td> {{ r.status }} </td>
-                <td> {{ r.dateReimbursed }} </td>
-                
+                                
               </tr>
             {% endfor %}
 

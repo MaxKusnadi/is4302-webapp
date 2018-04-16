@@ -6,10 +6,10 @@
       <div class="row">
         <div class="col-md-8 col-sm-10 center-block text-center">
           <header>
-            <h1>List of CashOuts</h1>
+            <h1>List of premiums payments</h1>
             <p>
               Welcome, {{ name }}!
-              Here is the history of all cashouts.
+              Here are a list of premium payments.
             </p>
           </header>
         </div><!-- /.col -->
@@ -17,23 +17,26 @@
           <table class="table" style="margin-top:20px">
             <thead class="thead-inverse">
             <tr>
-              <th> Cashout ID </th>
+              <th> ID </th>
               <th> Amount </th>
-              <th> Money Pool ID</th>
               <th> Status </th>
-              <th> Date Approved/Rejected </th>
+              <th> Date Approved </th>
+              <th> Customer ID </th>
+              <th> Policy ID </th>
             </tr>
             </thead>
 
-            {% for c in cashouts%}
+            {% for p in premiumpayments %}
               <tr>
-                <td> {{ c.cashOutID }} </td>
-                <td> {{ c.amount }} </td>
-		{% set pool = c.customer.split('#') %}
-                <td> {{ pool[1]}} </td>
-                <td> {{ c.status }} </td>
-                <td> {{ c.dateApproved }} </td>
-                
+                <td> {{ p.premID }} </td>
+                <td> {{ p.amount }} </td>
+                <td> {{ p.status }} </td>
+                <td> {{ p.dateApproved }} </td>
+		{% set cus = p.customer.split('#') %}
+                <td> {{ cus[1] }} </td>
+		{% set pol = p.policy.split('#') %}
+                <td> {{ pol[1] }} </td>
+
               </tr>
             {% endfor %}
 
