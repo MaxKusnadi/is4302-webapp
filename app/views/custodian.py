@@ -126,5 +126,14 @@ def custodianVerifyPremium():
     try:
         result = custodian_controller.get_pending_premium()
     except ValueError:
-        flash("Unable to get pending cashout information. Please try again later")
+        flash("Unable to get pending premium information. Please try again later")
     return render_template('custodian/custodianVerifyPremium.html', premiumpayments=result, title='Verify Premium', name=current_user.username)
+
+@app.route('/custodianViewAllPremium')
+def custodianViewAllPremium():
+    result = []
+    try:
+        result = custodian_controller.get_all_premium()
+    except ValueError:
+        flash("Unable to get premium information. Please try again later")
+    return render_template('custodian/custodianViewAllPremium.html', premiumpayments=result, title='View Premium', name=current_user.username)
