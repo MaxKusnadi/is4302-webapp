@@ -1,0 +1,46 @@
+{%  extends 'layout/custodian/main.html' %}
+{%  block content %}
+  <section id="team" class="light-bg">
+    <div class="container inner-top inner-bottom-sm">
+
+      <div class="row">
+        <div class="col-md-8 col-sm-10 center-block text-center">
+          <header>
+            <h1>List of CashOuts</h1>
+            <p>
+              Welcome, {{ name }}!
+              Here is the history of all cashouts.
+            </p>
+          </header>
+        </div><!-- /.col -->
+        <div class="col-sm-10 center-block">
+          <table class="table" style="margin-top:20px">
+            <thead class="thead-inverse">
+            <tr>
+              <th> Cashout ID </th>
+              <th> Amount </th>
+              <th> Money Pool ID</th>
+              <th> Status </th>
+              <th> Date Approved/Rejected </th>
+            </tr>
+            </thead>
+
+            {% for c in cashouts%}
+              <tr>
+                <td> {{ c.cashOutID }} </td>
+                <td> {{ c.amount }} </td>
+		{% set pool = c.customer.split('#') %}
+                <td> {{ pool[1]}} </td>
+                <td> {{ c.status }} </td>
+                <td> {{ c.dateApproved }} </td>
+                
+              </tr>
+            {% endfor %}
+
+          </table>
+        </div>
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+  </section>
+{%  endblock  %}

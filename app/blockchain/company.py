@@ -4,6 +4,7 @@ import requests
 from ..blockchain import URL
 from ..blockchain import COMPURL
 
+# List of endpoints
 REGISTRATION_ENDPOINT = "/org.acme.insurance.InsuranceCompany"
 CUST_ENDPOINT = "/org.acme.insurance.Customer"
 POLICY_ENDPOINT = "/org.acme.insurance.Policy"

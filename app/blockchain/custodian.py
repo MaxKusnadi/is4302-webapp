@@ -3,7 +3,7 @@ import requests
 from ..blockchain import URL
 from ..blockchain import CUSTODIANURL
 
-
+# List of endpoints
 REGISTRATION_ENDPOINT = "/org.acme.insurance.CustodianBank"
 CUSTODIAN_ENDPOINT="/org.acme.insurance.CustodianBank"
 REIMBURSEMENT_ENDPOINT = "/org.acme.insurance.Reimbursement"
@@ -15,6 +15,7 @@ REJECT_CASHOUT_ENDPOINT = "/org.acme.insurance.RejectCashOut"
 VERIFY_PREMIUM_ENDPOINT = "/org.acme.insurance.VerifyPremiumPayment"
 PREMIUM_ENDPOINT = "/org.acme.insurance.Premium"
 
+
 class Custodian:
 
     def register_custodian(self, username):
@@ -23,7 +24,7 @@ class Custodian:
             "$class": "org.acme.insurance.CustodianBank",
             "custodianID": username,
             "name": "Admin",
-            "description": "admin from custodian bank"
+            "description": "Admin from custodian bank"
         }
         r = requests.post(URL + REGISTRATION_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
@@ -32,7 +33,6 @@ class Custodian:
             logging.info(r.text)
             raise ValueError("Unable to create custodian in blockchain")
         return r.json()
-
 
     def get_pending_reimbursement(self):
         logging.info("Getting pending reimbursement")
@@ -46,7 +46,6 @@ class Custodian:
         result = list(filter(lambda x: 'status' in x, result))
         result = list(filter(lambda x: x['status'] == "PENDING", result))
         return result
-
 
     def get_reimbursement(self):
         logging.info("Getting all reimbursement")
@@ -192,4 +191,6 @@ class Custodian:
             logging.info(r.text)
             raise ValueError("Unable to reject premium payment in blockchain")
         return r.json()
+
+
 custodian = Custodian()

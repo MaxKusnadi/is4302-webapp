@@ -1,13 +1,7 @@
 import logging
-from flask_login import login_user, logout_user
 
-from app import db, login_manager, cache
-from ..models.user import User
 from ..blockchain.custodian import custodian
 
-@login_manager.user_loader
-def load_user(username):
-    return User.query.filter(User.username == username).first()
 
 class CustodianController:
     
@@ -106,3 +100,6 @@ class CustodianController:
         except ValueError:
             raise ValueError("Unable to reject premium")
         return result
+
+
+custodian_controller = CustodianController()

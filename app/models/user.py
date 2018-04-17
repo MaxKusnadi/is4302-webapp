@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     id = Column(Integer, primary_key=True)
     username = Column(String(64), unique=True)
     _password = Column(String(128))
-    is_verified = Column(Boolean)
+    is_verified = Column(Boolean)  # deprecated
     role = Column(String)
 
     def __init__(self, username, password, role):

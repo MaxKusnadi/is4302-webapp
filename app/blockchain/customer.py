@@ -1,10 +1,10 @@
 import logging
 import requests
 
-from ..blockchain import URL
 from ..blockchain import CUSTURL
 from ..blockchain import COMPURL
 
+# List of endpoints
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
 REGISTER_CUSTOMER = "/org.acme.insurance.RegisterCustomer"
 POLICY_ENDPOINT = "/org.acme.insurance.Policy"
@@ -75,12 +75,11 @@ class Customer:
     def file_claim(self, policyid, username, claimdesc):
         logging.info("File Claim")
         data = {
-          "$class": "org.acme.insurance.FileClaim",
-          "policyId": policyid,
-          "claimDesc": claimdesc,
-          "customer": "resource:org.acme.insurance.Customer#"+username
+            "$class": "org.acme.insurance.FileClaim",
+            "policyId": policyid,
+            "claimDesc": claimdesc,
+            "customer": "resource:org.acme.insurance.Customer#"+username
         }
-        #logging.info(username+" "+claimdesc+" "+policyid)
         r = requests.post(CUSTURL + FILE_CLAIM_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
@@ -92,9 +91,9 @@ class Customer:
     def submit_premium_payment(self, policyid, username):
         logging.info("Submit Premium Payment")
         data = {
-          "$class": "org.acme.insurance.SubmitPremiumPayment",
-          "policyId": policyid,
-          "customer": "resource:org.acme.insurance.Customer#"+username
+            "$class": "org.acme.insurance.SubmitPremiumPayment",
+            "policyId": policyid,
+            "customer": "resource:org.acme.insurance.Customer#"+username
         }
         r = requests.post(CUSTURL + SUBMIT_PREMIUM_PAYMENT_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
@@ -111,8 +110,7 @@ class Customer:
         }
 
         logging.info("Getting customer info")
-        #customer info request
-        cr = requests.get(CUSTURL + CUSTOMER_ENDPOINT+ "/" + username, json=data)
+        cr = requests.get(CUSTURL + CUSTOMER_ENDPOINT + "/" + username, json=data)
 
         logging.info("Status code: {}".format(cr.status_code))
 
@@ -136,7 +134,7 @@ class Customer:
 
     def view_money_pool_reimbursed(self, policyid):
         logging.info("Retrieving money pool reimbursed Data")
-	
+
         r = requests.get(CUSTURL + VIEW_MONEY_POOL_ENDPOINT+ "/" + policyid)
         logging.info("Status code: {}".format(r.status_code))
         if r.status_code != 200:
@@ -162,5 +160,6 @@ class Customer:
 
     def add_salary(self, username, salary):
         pass
+
 
 customer = Customer()

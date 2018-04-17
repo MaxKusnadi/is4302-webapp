@@ -1,32 +1,35 @@
 <header>
-  <div class="yamm">
-    <div class="navbar-collapse collapse">
-      <div class="container">
+    <div class="yamm">
+        <div class="navbar-collapse collapse">
+            <div class="container">
 
-        <!-- ============================================================= LOGO ============================================================= -->
+                <!-- ============================================================= LOGO ============================================================= -->
 
-        <a class="navbar-brand" href="#"><img src={{ url_for('static', filename="assets/images/logo.svg") }} class="logo" alt=""></a>
-
-        <!-- ============================================================= LOGO : END ============================================================= -->
+                <a class="navbar-brand" href="#"><h2>REGULATOR PORTAL</h2></a>
 
 
-        <!-- ============================================================= MAIN NAVIGATION ============================================================= -->
-
-        <ul class="nav navbar-nav">
-
-          <li class="dropdown">
-            <a href="#">Home</a>
-          </li><!-- /.dropdown -->
-
-          <li class="dropdown">
-            <a href="{{ url_for('logout') }}">Logout</a>
-          </li><!-- /.dropdown -->
-        </ul>
+                <!-- ============================================================= LOGO : END ============================================================= -->
 
 
-        <!-- ============================================================= MAIN NAVIGATION : END ============================================================= -->
+                <!-- ============================================================= MAIN NAVIGATION ============================================================= -->
 
-      </div><!-- /.container -->
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.yamm -->
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a href="#">Home</a>
+                    </li><!-- /.dropdown -->
+
+                    <li class="dropdown">
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </li><!-- /.dropdown -->
+
+                </ul>
+
+
+
+                <!-- ============================================================= MAIN NAVIGATION : END ============================================================= -->
+
+            </div><!-- /.container -->
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.yamm -->
 </header>

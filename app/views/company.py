@@ -2,7 +2,8 @@ from flask import request, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 
 from app import app
-from ..controllers.forms import ReimbursementForm, CustomerRegistrationForm, TerminateCustomerPolicyForm, RegisterPolicyForm
+from ..controllers.forms import ReimbursementForm, CustomerRegistrationForm,\
+                                TerminateCustomerPolicyForm, RegisterPolicyForm
 from ..controllers.company import company_controller
 
 
@@ -36,7 +37,8 @@ def register_customer():
             return redirect(url_for('register_customer'))
         flash("Customer '{}' registration is successful".format(username))
         return redirect(url_for('index'))
-    return render_template('company/registerCust.html', form=form, title='Register Customer', name=current_user.username)
+    return render_template('company/registerCust.html', form=form, title='Register Customer',
+                           name=current_user.username)
 
 
 @app.route('/terminate/policy', methods=["GET", "POST"])
@@ -89,7 +91,8 @@ def view_policy_application():
         flash("Not authorized to do such action")
         return redirect(url_for('index'))
     data = company_controller.get_all_policy_appl()
-    return render_template('company/viewPolicyAppl.html', title='View All Policy Applications', appl=data, name=current_user.username)
+    return render_template('company/viewPolicyAppl.html', title='View All Policy Applications', appl=data,
+                           name=current_user.username)
 
 
 @app.route('/approve-policy')
@@ -126,7 +129,9 @@ def view_claim():
         return redirect(url_for('index'))
     data = company_controller.get_all_claim()
 
-    return render_template('company/viewClaim.html', title='View All Claim Requests', claim=data, name=current_user.username)
+    return render_template('company/viewClaim.html', title='View All Claim Requests', claim=data,
+                           name=current_user.username)
+
 
 @app.route('/reject-claim')
 @login_required
@@ -161,6 +166,7 @@ def submit_reimbursement():
         return redirect(url_for('view_claim'))
     return render_template('company/submitReimb.html', form=form, claim=claimID, title='Submit Reimbursement')
 
+
 @app.route('/view-cashout', methods=["GET","POST"])
 @login_required
 def view_cashout():
@@ -169,7 +175,9 @@ def view_cashout():
         return redirect(url_for('index'))
     cust = company_controller.get_all_cust()
 
-    return render_template('company/viewCashOut.html', title='View Available CashOuts', cust=cust, name=current_user.username)
+    return render_template('company/viewCashOut.html', title='View Available CashOuts', cust=cust,
+                           name=current_user.username)
+
 
 @app.route('/submit-cashout', methods=["GET","POST"])
 @login_required

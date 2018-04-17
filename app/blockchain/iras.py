@@ -4,6 +4,7 @@ import requests
 from ..blockchain import URL
 from ..blockchain import REGURL
 
+# List of endpoints
 REGISTRATION_ENDPOINT = "/org.acme.insurance.Regulator"
 CUSTOMER_ENDPOINT = "/org.acme.insurance.Customer"
 APPROVE_REG_ENDPOINT = "/org.acme.insurance.ApproveRegistration"

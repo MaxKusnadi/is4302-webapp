@@ -1,10 +1,5 @@
-from app import db, login_manager, cache
-from ..models.user import User
 from ..blockchain.customer import customer
 
-@login_manager.user_loader
-def load_user(username):
-    return User.query.filter(User.username == username).first()
 
 class CustomerController:
 
@@ -55,5 +50,6 @@ class CustomerController:
             return customer.submit_premium_payment(policyid, username)
         except ValueError:
             raise AttributeError("Can't submit premium payment in blockchain")
+
 
 customer_controller = CustomerController()
