@@ -58,8 +58,8 @@ class Company:
         logging.info("Assigning pool to policy")
         data = {
             "$class": "org.acme.insurance.AssignMoneyPoolToPolicy",
-            "policy": policyId,
-            "pool": policyId
+            "policy": "resource:org.acme.insurance.Policy#"+policyId,
+            "pool": "resource:org.acme.insurance.MoneyPool#"+policyId
         }
         r = requests.post(COMPURL + ASSIGN_MONEY_POOL_TO_POLICY_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))
@@ -187,7 +187,7 @@ class Company:
         data = {
             "$class": "org.acme.insurance.TerminateCustomerPolicy",
             "custPolicyID": policy_id,
-            "customer": customer_id
+            "customer": "resource:org.acme.insurance.Customer#"+customer_id
         }
         r = requests.post(COMPURL + TERMINATE_POLICY_ENDPOINT, json=data)
         logging.info("Status code: {}".format(r.status_code))

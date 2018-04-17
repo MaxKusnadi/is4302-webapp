@@ -59,7 +59,7 @@ def terminate_policy():
     return render_template('company/terminatePolicy.html', form=form, title='Register Policy')
 
 
-@app.route('/terminate/policy', methods=["GET", "POST"])
+@app.route('/register/policy', methods=["GET", "POST"])
 @login_required
 def register_policy():
     if current_user.role != "company":
