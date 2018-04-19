@@ -24,6 +24,12 @@ This follows *MVC* model
 - Upgrade the database scheme. `python manage.py db upgrade`
 - Run the app. `python run.py`
 
+### Creating accounts
+- Go to `localhost:8000/admin`
+- Fill in username, password and role
+- If everything works, you will be directed to login page
+- If it doesn't, check whether you have set up your database correctly or whether the composer rest server runs properly. Check out the log in the terminal for more info
+
 ### Running test cases
 - Go to the root folder
 - Run `. start_test.sh`
