@@ -24,4 +24,10 @@ This follows *MVC* model
 - Upgrade the database scheme. `python manage.py db upgrade`
 - Run the app. `python run.py`
 
+### Running test cases
+- Go to the root folder
+- Run `. start_test.sh`
+- It will show you the test case results as well as the code coverage
+- The test cases are written under `test_cases` folder. Do take note that this web app is not heavily tested due to time constraint
+
 Any issues contact [here](mailto:max.kusnadi@gmail.com)
