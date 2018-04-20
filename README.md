@@ -13,6 +13,13 @@ This follows *MVC* model
 ## How to setup
 ### Setting up blockchain
 - Upload `is4302proj.bna` to *composer-playground*
+- Create an instance of each participant: Customer, Insurance Company, Custodian Bank, Regulator.
+- Issue an identity to each of the instance.
+- There would be a total of 4 rest servers such as: 
+  ./start_rest_server.sh -i 1 -p 3001 -c cust1@is4302proj (Customer)
+  ./start_rest_server.sh -i 2 -p 3002 -c comp1@is4302proj (InsuranceCompany)
+  ./start_rest_server.sh -i 3 -p 3003 -c custo1@is4302proj (CustodianBank)
+  ./start_rest_server.sh -i 4 -p 3004 -c reg1@is4302proj (Regulator)
 - Start the rest server using your desired port and **update `app.blockchain.__init__.py` with the correct URLs and port numbers**
 
 ### Setting up web app
